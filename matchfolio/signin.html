@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>the match parlor - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Home page specific styles */
+      .home-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: #ffffff;
+      }
+
+      /* Top nav bar - maroon */
+      .home-nav {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4%;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      /* the match parlor logo button */
+      .matchfolio-logo {
+        position: absolute;
+        left: 4%;
+        background: #ffffff;
+        border: 2px solid #390606;
+        border-radius: 15px;
+        padding: 2px 60px;
+        text-decoration: none;
+        color: #390606;
+        font-family: "EB Garamond", serif;
+        font-size: 40px;
+        font-weight: 550;
+        transition: all 0.25s ease;
+      }
+
+      .matchfolio-logo:hover {
+        background: #f5f5f5;
+      }
+
+      /* Navigation menu */
+      .nav-menu {
+        position: absolute;
+        left: calc(4% + 340px);
+        right: calc(4% + 15px);
+        display: flex;
+        justify-content: flex-end;
+        gap: clamp(16px, 4vw, 80px);
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .nav-menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 20px;
+        font-weight: 50;
+        transition: opacity 0.2s ease;
+        padding: 4px 12px;
+        border: 2px solid transparent;
+        border-radius: 6px;
+      }
+
+      .nav-menu a:hover {
+        opacity: 0.8;
+      }
+
+      /* Active/highlighted nav link */
+      .nav-menu a.active {
+        background: transparent;
+        color: #ffffff;
+        border-color: transparent;
+      }
+
+      .nav-menu a.active:hover {
+        background: transparent;
+        opacity: 0.8;
+      }
+
+      /* Dropdown menu for find */
+      .nav-item {
+        position: relative;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #390606;
+        border: 2px solid #390606;
+        border-radius: 6px;
+        margin-top: 4px;
+        min-width: 150px;
+        z-index: 1001;
+      }
+
+      .nav-item:hover .dropdown {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dropdown a {
+        color: #ffffff;
+        padding: 10px 16px;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 16px;
+        font-weight: 50;
+        border: none;
+        border-radius: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .dropdown a:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .dropdown a:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+
+      .dropdown a:hover {
+        background: #520808;
+        opacity: 1;
+      }
+
+      .menu-toggle {
+        display: none;
+        margin-left: auto;
+        padding: 0 4px;
+        border: none;
+        background: transparent;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px) {
+        .home-nav {
+          --mobile-nav-height: calc(52px * 0.95);
+          height: var(--mobile-nav-height);
+          justify-content: flex-end;
+        }
+
+        .matchfolio-logo {
+          height: calc(var(--mobile-nav-height) * 1.2);
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 36px;
+          padding: 2px 18px;
+          border-radius: 10px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 4%;
+          right: 4%;
+          background: #390606;
+          border: 1px solid #5e2222;
+          border-radius: 8px;
+          padding: 8px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+          z-index: 1002;
+        }
+
+        .home-nav.nav-open .nav-menu {
+          display: flex;
+        }
+
+        .nav-menu > a,
+        .nav-item > a {
+          display: block;
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 18px;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .dropdown {
+          display: flex;
+          flex-direction: column;
+          position: static;
+          transform: none;
+          border: none;
+          background: transparent;
+          margin-top: 0;
+          min-width: 0;
+          padding-left: 12px;
+        }
+
+        .dropdown a {
+          color: #f7e7e7;
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+      }
+
+      /* Footer bar - maroon */
+      .enter-footer {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Bottom gray line */
+      .bottom-line {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 132px;
+        height: 3px;
+        background: #4b4b4b;
+        z-index: 50;
+      }
+
+      .coming-soon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        font-family: "EB Garamond", serif;
+        font-size: 80px;
+        font-weight: 600;
+        color: #390606;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="home-container">
+      <!-- Top Nav Bar -->
+      <nav class="home-nav" data-name="top bar">
+        <a href="index.html" class="matchfolio-logo">the match parlor</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+        <div class="nav-menu">
+          <div class="nav-item">
+            <a href="home.html">home</a>
+            <div class="dropdown">
+              <a href="contact.html">contact us</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="find.html">find</a>
+            <div class="dropdown">
+              <a href="find.html?type=search">search</a>
+              <a href="trade.html">trade</a>
+              <a href="map.html">map</a>
+            </div>
+          </div>
+          <a href="share.html">share</a>
+          <div class="nav-item">
+            <a href="learn.html">learn</a>
+            <div class="dropdown">
+              <a href="learn.html?type=articles">articles</a>
+              <a href="collector-resources.html">collector resources</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main>
+        <div class="coming-soon">coming soon</div>
+      </main>
+
+      <!-- Bottom Bar Footer -->
+      <footer class="enter-footer" data-name="bottom bar">
+      </footer>
+
+      <!-- Bottom gray line -->
+      <div class="bottom-line"></div>
+    </div>
+
+    <script>
+      (() => {
+        const nav = document.querySelector(".home-nav");
+        const menuToggle = document.querySelector(".menu-toggle");
+        if (!nav || !menuToggle) return;
+
+        const closeMenu = () => {
+          nav.classList.remove("nav-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        };
+
+        menuToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = nav.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!nav.contains(event.target)) closeMenu();
+        });
+
+        nav.querySelectorAll(".nav-menu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (window.innerWidth <= 1024) closeMenu();
+          });
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 1024) closeMenu();
+        });
+      })();
+    </script>
+  </body>
+</html>
