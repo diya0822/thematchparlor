@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>the match parlor - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Home page specific styles */
+      .home-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: #ffffff;
+      }
+
+      /* Top nav bar - maroon */
+      .home-nav {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4%;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      /* the match parlor logo button */
+      .matchfolio-logo {
+        position: absolute;
+        left: 4%;
+        background: #ffffff;
+        border: 2px solid #390606;
+        border-radius: 15px;
+        padding: 2px 60px;
+        text-decoration: none;
+        color: #390606;
+        font-family: "EB Garamond", serif;
+        font-size: 40px;
+        font-weight: 550;
+        transition: all 0.25s ease;
+      }
+
+      .matchfolio-logo:hover {
+        background: #f5f5f5;
+      }
+
+      /* Navigation menu */
+      .nav-menu {
+        position: absolute;
+        left: calc(4% + 340px);
+        right: calc(4% + 15px);
+        display: flex;
+        justify-content: flex-end;
+        gap: clamp(16px, 4vw, 80px);
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .nav-menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 20px;
+        font-weight: 50;
+        transition: opacity 0.2s ease;
+        padding: 4px 12px;
+        border: 2px solid transparent;
+        border-radius: 6px;
+      }
+
+      .nav-menu a:hover {
+        opacity: 0.8;
+      }
+
+      /* Active/highlighted nav link */
+      .nav-menu a.active {
+        background: transparent;
+        color: #ffffff;
+        border-color: transparent;
+      }
+
+      .nav-menu a.active:hover {
+        background: transparent;
+        opacity: 0.8;
+      }
+
+
+      /* Dropdown menu for find */
+      .nav-item {
+        position: relative;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #390606;
+        border: 2px solid #390606;
+        border-radius: 6px;
+        margin-top: 4px;
+        min-width: 150px;
+        z-index: 1001;
+      }
+
+      .nav-item:hover .dropdown {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dropdown a {
+        color: #ffffff;
+        padding: 10px 16px;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 16px;
+        font-weight: 50;
+        border: none;
+        border-radius: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .dropdown a:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .dropdown a:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+
+      .dropdown a:hover {
+        background: #520808;
+        opacity: 1;
+      }
+
+      .menu-toggle {
+        display: none;
+        margin-left: auto;
+        padding: 0 4px;
+        border: none;
+        background: transparent;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px) {
+        .home-nav {
+          --mobile-nav-height: calc(52px * 0.9);
+          height: var(--mobile-nav-height);
+          justify-content: flex-end;
+        }
+
+        .matchfolio-logo {
+          height: calc(var(--mobile-nav-height) * 1.3);
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 36px;
+          padding: 2px 18px;
+          border-radius: 10px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 4%;
+          right: 4%;
+          background: #390606;
+          border: 1px solid #5e2222;
+          border-radius: 8px;
+          padding: 8px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+          z-index: 1002;
+        }
+
+        .home-nav.nav-open .nav-menu {
+          display: flex;
+        }
+
+        .nav-menu > a,
+        .nav-item > a {
+          display: block;
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 18px;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .dropdown {
+          display: flex;
+          flex-direction: column;
+          position: static;
+          transform: none;
+          border: none;
+          background: transparent;
+          margin-top: 0;
+          min-width: 0;
+          padding-left: 12px;
+        }
+
+        .dropdown a {
+          color: #f7e7e7;
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+
+        .home-header {
+          position: fixed;
+          top: 40%;
+          left: 50%;
+          bottom: 50%;
+          transform: translate(30%, -15%);
+          width: 92%;
+          max-width: 92%;
+          text-align: center;
+          justify-content: flex-start;
+          align-items: center;
+          z-index: 9;
+        }
+
+        .home-title {
+          font-size: 52px !important;
+          line-height: 1.05 !important;
+        }
+
+        .home-description {
+          font-size: 20px !important;
+          line-height: 1.2 !important;
+          max-width: 150% !important;
+          margin: 0 auto;
+        }
+
+        .home-matchstick-tracker {
+          right: auto !important;
+          width: 450px !important;
+          transform-origin: center;
+          align-items: flex-start;
+          z-index: 0;
+        }
+
+        .home-matchstick-tracker img {
+          display: block;
+          transform: rotate(90deg) !important;
+          transform-origin: top center;
+        }
+
+        .home-matchstick-tracker.top {
+          top: auto !important;
+          left: 40% !important;
+          bottom: 13.65% !important;
+          transform: translateX(-50%) !important;
+          z-index: 0;
+        }
+
+        .home-matchstick-tracker.middle {
+          top: auto !important;
+          left: 55% !important;
+          bottom: 13.65% !important;
+          transform: translateX(-50%) !important;
+          z-index: 0;
+        }
+
+        .home-matchstick-tracker.bottom {
+          top: auto !important;
+          left: 70% !important;
+          bottom: 13.65% !important;
+          transform: translateX(-50%) !important;
+          z-index: 0;
+        }
+
+        .tracker-number {
+          color: #ffffff !important;
+          top: 0% !important;
+          left: 50% !important;
+          transform: translate(-50%, -200%) !important;
+          z-index: 12;
+        }
+
+        .tracker-label {
+          top: 50% !important;
+          left: 50% !important;
+          transform: translate(-50%, -50%) rotate(90deg) !important;
+          width: 210px !important;
+          text-align: center !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .home-nav {
+          --mobile-nav-height: calc(52px * 0.93);
+          height: var(--mobile-nav-height);
+          justify-content: flex-end;
+        }
+
+        .matchfolio-logo {
+          height: calc(var(--mobile-nav-height) * 1.3);
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 36px;
+          padding: 2px 18px;
+          border-radius: 10px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 4%;
+          right: 4%;
+          background: #390606;
+          border: 1px solid #5e2222;
+          border-radius: 8px;
+          padding: 8px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+          z-index: 1002;
+        }
+
+        .home-nav.nav-open .nav-menu {
+          display: flex;
+        }
+
+        .nav-menu > a,
+        .nav-item > a {
+          display: block;
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 18px;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .dropdown {
+          display: flex;
+          flex-direction: column;
+          position: static;
+          transform: none;
+          border: none;
+          background: transparent;
+          margin-top: 0;
+          min-width: 0;
+          padding-left: 12px;
+        }
+
+        .dropdown a {
+          color: #f7e7e7;
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+
+        .home-header {
+          position: fixed;
+          top: 55%;
+          left: 60%;
+          bottom: auto;
+          transform: translate(32%, -20%);
+          width: 94%;
+          max-width: 94%;
+          text-align: center;
+          justify-content: flex-start;
+          align-items: center;
+          z-index: 9;
+        }
+
+        .home-title {
+          font-size: 10px !important;
+          line-height: 1.05 !important;
+        }
+
+        .home-title.typing {
+          font-size: 30px !important;
+        }
+
+        .home-description {
+          font-size: 16px !important;
+          line-height: 1.25 !important;
+          width: 150% !important;
+          max-width: none !important;
+          position: relative;
+          left: 75%;
+          transform: translateX(-50%);
+          margin: 0;
+        }
+
+        .home-matchstick-tracker {
+          right: auto !important;
+          width: 350px !important;
+          transform-origin: center;
+          align-items: flex-start;
+        }
+
+        .home-matchstick-tracker img {
+          display: block;
+          transform: rotate(90deg) !important;
+          transform-origin: top center;
+        }
+
+        .home-matchstick-tracker.top {
+          top: auto !important;
+          left: 31% !important;
+          bottom: 140px !important;
+          transform: translateX(-50%) !important;
+          z-index: 0;
+        }
+
+        .home-matchstick-tracker.middle {
+          top: auto !important;
+          left: 59% !important;
+          bottom: 140px !important;
+          transform: translateX(-50%) !important;
+          z-index: 0;
+        }
+
+        .home-matchstick-tracker.bottom {
+          top: auto !important;
+          left: 88% !important;
+          bottom: 140px !important;
+          transform: translateX(-50%) !important;
+          z-index: 0;
+        }
+
+        .tracker-number {
+          font-size: 30px;
+          color: #ffffff !important;
+          top: 0% !important;
+          left: 50% !important;
+          transform: translate(-110%, calc(-260% - 25px)) !important;
+          z-index: 12;
+        }
+
+        .tracker-label {
+          font-size: 12px;
+          width: 180px !important;
+          top: 40% !important;
+          left: 45% !important;
+          transform: translate(-40%, -50%) rotate(90deg) !important;
+          text-align: center !important;
+        }
+      }
+
+      /* Footer bar - maroon */
+      .enter-footer {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+      /* Bottom gray line */
+      .bottom-line {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 132px;
+        height: 3px;
+        background: #4b4b4b;
+        z-index: 50;
+      }
+
+      /* Hide any content below footer bar */
+      .footer-mask {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 40px;
+        background: #ffffff;
+        z-index: 49;
+        pointer-events: none;
+      }
+
+      /* Home page header and content */
+      .home-header {
+        position: fixed;
+        left: 5%;
+        right: calc(450px + 20px);
+        top: 68px;
+        bottom: 60px;
+        max-width: 55%;
+        margin-top: calc(-1 * var(--tracker-clearance-shift, 0px));
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 10;
+      }
+
+      .home-title {
+        font-family: "EB Garamond", serif;
+        font-size: 80px;
+        font-weight: 600;
+        color: #390606;
+        margin: 0 0 0px 0;
+        line-height: 1.1;
+      }
+
+      .home-title.typing {
+        display: inline-flex;
+        align-items: flex-end;
+        white-space: nowrap;
+      }
+
+      .typing-text {
+        display: inline-block;
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        margin-left: 6px;
+        height: 1em;
+        border-right: 4px solid #390606;
+        animation: blink 1s step-end infinite;
+      }
+
+      .typing-cursor.typing-cursor--done {
+        animation: none;
+        border-color: transparent;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          border-color: transparent;
+        }
+        50% {
+          border-color: #390606;
+        }
+      }
+
+      .home-description {
+        font-family: "Inter", sans-serif;
+        font-size: 24px;
+        font-weight: 200;
+        color: #000000;
+        line-height: 1;
+        padding: 10px 0;
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+
+
+      /* Frame image styling */
+      .frame-image {
+        position: fixed;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 600px;
+        height: auto;
+        object-fit: contain;
+        z-index: 10;
+      }
+
+      /* Matchbox grid styling */
+      .matchbox-grid {
+        position: fixed;
+        bottom: 220px;
+        right: 15%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 400px;
+        z-index: 10;
+      }
+
+      .matchbox-grid img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 4px;
+      }
+
+      /* Matchbook 7 positioning */
+      .matchbook-7 {
+        position: fixed;
+        bottom: 215px;
+        right: 24.5%;
+        width: 120px;
+        height: auto;
+        object-fit: contain;
+        border-radius: 4px;
+        z-index: 10;
+      }
+
+      /* Border circles for matchstick trackers - REMOVED */
+
+      @keyframes scrollCircles {
+        0% {
+          background-position: 0 center;
+        }
+        100% {
+          background-position: 33px center;
+        }
+      }
+
+      @keyframes moveBorderCircles {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 40px 0;
+        }
+      }
+
+      @keyframes moveBorderCirclesVertical {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 0 40px;
+        }
+      }
+
+      /* Top border circles - REMOVED */
+
+      /* Bottom border circles - REMOVED */
+
+      /* Home page matchstick tracker */
+      .home-matchstick-tracker {
+        position: fixed;
+        right: 0;
+        width: 450px;
+        height: auto;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .home-matchstick-tracker img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .home-matchstick-tracker.top {
+        top: 32%;
+        right: 0px;
+        transform: translateY(-50%);
+      }
+
+      .home-matchstick-tracker.middle {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .home-matchstick-tracker.bottom {
+        top: 68%;
+        transform: translateY(-50%);
+      }
+
+      .tracker-number {
+        position: absolute;
+        font-family: "EB Garamond", serif;
+        font-size: 35px;
+        font-weight: 600;
+        color: #5e2222;
+        top: 50%;
+        left: 50%;
+        transform: translate(-70%, -50%);
+        z-index: 11;
+      }
+
+      .tracker-label {
+        position: absolute;
+        font-family: "EB Garamond", serif;
+        font-size: 20px;
+        font-style: italic;
+        color: #390606;
+        top: 50%;
+        left: 65%;
+        transform: translate(calc(-50% + 60px), -50%);
+        z-index: 11;
+        text-align: left;
+        width: 200px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="home-container">
+      <!-- Top Nav Bar -->
+      <nav class="home-nav" data-name="top bar">
+        <a href="index.html" class="matchfolio-logo">the match parlor</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+        <div class="nav-menu">
+          <div class="nav-item">
+            <a href="home.html" class="active">home</a>
+            <div class="dropdown">
+              <a href="contact.html">contact us</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="find.html">find</a>
+            <div class="dropdown">
+              <a href="find.html?type=search">search</a>
+              <a href="trade.html">trade</a>
+              <a href="map.html">map</a>
+            </div>
+          </div>
+          <a href="share.html">share</a>
+          <div class="nav-item">
+            <a href="learn.html">learn</a>
+            <div class="dropdown">
+              <a href="learn.html?type=articles">articles</a>
+              <a href="collector-resources.html">collector resources</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+      <!-- Main Content -->
+      <main>
+        <div class="home-matchstick-tracker top">
+          <img src="images/homepagematchstick.jpg" alt="matchstick" />
+          <div class="tracker-number">700+</div>
+          <div class="tracker-label">matchbooks collected</div>
+        </div>
+        <div class="home-matchstick-tracker middle">
+          <img src="images/homepagematchstick.jpg" alt="matchstick" />
+          <div class="tracker-number">15+</div>
+          <div class="tracker-label">cities explored</div>
+        </div>
+        <div class="home-matchstick-tracker bottom">
+          <img src="images/homepagematchstick.jpg" alt="matchstick" />
+          <div class="tracker-number">10+</div>
+          <div class="tracker-label">countries represented</div>
+        </div>
+        <div class="home-header">
+          <h1 class="home-title typing" data-text="matchbooks, organized">
+            <span class="typing-text"></span>
+            <span class="typing-cursor" aria-hidden="true"></span>
+          </h1>
+          <p class="home-description">
+            the match parlor is an archive that makes finding and trading matches easier than ever, powered by collectors like you.
+          </p>
+        </div>
+      </main>
+
+      </div>
+
+      <!-- Bottom Bar Footer -->
+      <footer class="enter-footer" data-name="bottom bar">
+      </footer>
+
+      <div class="footer-mask" aria-hidden="true"></div>
+
+      <!-- Bottom gray line -->
+      <div class="bottom-line"></div>
+    </div>
+
+    <script>
+      (() => {
+        const MIN_TRACKER_GAP = 5;
+        const EXTRA_COLLISION_LIFT = 506;
+        let rafId = null;
+
+        const updateHeaderClearance = () => {
+          const homeHeader = document.querySelector(".home-header");
+          if (!homeHeader) return;
+
+          homeHeader.style.setProperty("--tracker-clearance-shift", "0px");
+
+          const trackerImages = Array.from(
+            document.querySelectorAll(".home-matchstick-tracker img"),
+          );
+          if (!trackerImages.length) return;
+
+          const protectedBlocks = Array.from(
+            homeHeader.querySelectorAll(".home-title, .home-description"),
+          );
+          if (!protectedBlocks.length) return;
+
+          const headerRect = homeHeader.getBoundingClientRect();
+          let requiredShift = 0;
+
+          protectedBlocks.forEach((block) => {
+            const blockRect = block.getBoundingClientRect();
+
+            trackerImages.forEach((image) => {
+              const trackerRect = image.getBoundingClientRect();
+              const horizontalOverlap =
+                Math.min(blockRect.right, trackerRect.right) -
+                Math.max(blockRect.left, trackerRect.left);
+
+              if (horizontalOverlap <= 0) return;
+
+              const isWithinGapOrOverlapping =
+                blockRect.bottom > trackerRect.top - MIN_TRACKER_GAP &&
+                blockRect.top < trackerRect.bottom + MIN_TRACKER_GAP;
+
+              if (!isWithinGapOrOverlapping) return;
+
+              const shiftForThisTracker =
+                blockRect.bottom - (trackerRect.top - MIN_TRACKER_GAP);
+              requiredShift = Math.max(requiredShift, shiftForThisTracker);
+            });
+          });
+
+          if (requiredShift <= 0) return;
+
+          requiredShift += EXTRA_COLLISION_LIFT;
+
+          const nav = document.querySelector(".home-nav");
+          const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
+          const minTopBoundary = navBottom + 20;
+          const maxAllowedShift = Math.max(0, headerRect.top - minTopBoundary);
+          const finalShift = Math.min(
+            Math.ceil(requiredShift),
+            Math.floor(maxAllowedShift),
+          );
+
+          homeHeader.style.setProperty(
+            "--tracker-clearance-shift",
+            `${finalShift}px`,
+          );
+        };
+
+        const scheduleHeaderClearanceUpdate = () => {
+          if (rafId !== null) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            rafId = null;
+            updateHeaderClearance();
+          });
+        };
+
+        window.__scheduleHomeHeaderClearanceUpdate = scheduleHeaderClearanceUpdate;
+
+        document.addEventListener(
+          "DOMContentLoaded",
+          scheduleHeaderClearanceUpdate,
+        );
+        window.addEventListener("load", scheduleHeaderClearanceUpdate);
+        window.addEventListener("resize", scheduleHeaderClearanceUpdate);
+        window.addEventListener(
+          "orientationchange",
+          scheduleHeaderClearanceUpdate,
+        );
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(scheduleHeaderClearanceUpdate);
+        }
+      })();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const title = document.querySelector(".home-title.typing");
+        if (!title) {
+          return;
+        }
+        const textSpan = title.querySelector(".typing-text");
+        const cursor = title.querySelector(".typing-cursor");
+        if (!textSpan) {
+          return;
+        }
+        const text = title.getAttribute("data-text") || "";
+        textSpan.textContent = "";
+        let index = 0;
+
+        const typeNext = () => {
+          if (index <= text.length) {
+            textSpan.textContent = text.slice(0, index);
+            if (window.__scheduleHomeHeaderClearanceUpdate) {
+              window.__scheduleHomeHeaderClearanceUpdate();
+            }
+            index += 1;
+            setTimeout(typeNext, 120);
+          } else if (cursor) {
+            setTimeout(() => {
+              cursor.classList.add("typing-cursor--done");
+            }, 3000);
+          }
+        };
+
+        typeNext();
+      });
+
+      (() => {
+        const nav = document.querySelector(".home-nav");
+        const menuToggle = document.querySelector(".menu-toggle");
+        if (!nav || !menuToggle) return;
+
+        const closeMenu = () => {
+          nav.classList.remove("nav-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        };
+
+        menuToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = nav.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!nav.contains(event.target)) closeMenu();
+        });
+
+        nav.querySelectorAll(".nav-menu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (window.innerWidth <= 1024) closeMenu();
+          });
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 1024) closeMenu();
+        });
+      })();
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>
