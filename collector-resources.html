@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>the match parlor - Collector Resources</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /* Home page specific styles */
+      .home-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background: #ffffff;
+      }
+
+      /* Top nav bar - maroon */
+      .home-nav {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4%;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      /* the match parlor logo button */
+      .matchfolio-logo {
+        position: absolute;
+        left: 4%;
+        background: #ffffff;
+        border: 0px;
+        border-radius: 0px;
+        padding: 2px 15px;
+        text-decoration: none;
+        color: #390606;
+        font-family: "EB Garamond", serif;
+        font-size: 40px;
+        font-weight: 550;
+        transition: all 0.25s ease;
+      }
+
+      .matchfolio-logo:hover {
+        background: #f5f5f5;
+      }
+
+      /* Navigation menu */
+      .nav-menu {
+        position: absolute;
+        left: calc(4% + 340px);
+        right: calc(4% + 15px);
+        display: flex;
+        justify-content: flex-end;
+        gap: clamp(16px, 4vw, 80px);
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .nav-menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 20px;
+        font-weight: 50;
+        transition: opacity 0.2s ease;
+        padding: 4px 12px;
+        border: 2px solid transparent;
+        border-radius: 6px;
+      }
+
+      .nav-menu a:hover {
+        opacity: 0.8;
+      }
+
+      /* Active/highlighted nav link */
+      .nav-menu a.active {
+        background: transparent;
+        color: #ffffff;
+        border-color: transparent;
+      }
+
+      .nav-menu a.active:hover {
+        background: transparent;
+        opacity: 0.8;
+      }
+
+      /* Dropdown menu */
+      .nav-item {
+        position: relative;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #390606;
+        border: 2px solid #390606;
+        border-radius: 6px;
+        margin-top: 4px;
+        min-width: 150px;
+        z-index: 1001;
+      }
+
+      .nav-item:hover .dropdown {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dropdown a {
+        color: #ffffff;
+        padding: 10px 16px;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 16px;
+        font-weight: 50;
+        border: none;
+        border-radius: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .dropdown a:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .dropdown a:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+
+      .dropdown a:hover {
+        background: #390606;
+        opacity: 1;
+      }
+
+      .menu-toggle {
+        display: none;
+        margin-left: auto;
+        margin-bottom: 5px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px) {
+        .home-nav {
+          --mobile-nav-height: calc(30px * 0.93);
+          height: var(--mobile-nav-height);
+          justify-content: flex-end;
+        }
+
+        .matchfolio-logo {
+          height: calc(var(--mobile-nav-height) * 1.2);
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 30px;
+          border: 0px;
+          border-radius: 0px;
+          padding: 2px 15px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 4%;
+          right: 4%;
+          background: #390606;
+          border: 1px solid #390606;
+          border-radius: 8px;
+          padding: 8px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+          z-index: 1002;
+        }
+
+        .home-nav.nav-open .nav-menu {
+          display: flex;
+        }
+
+        .nav-menu > a,
+        .nav-item > a {
+          display: block;
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 18px;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .dropdown {
+          display: flex;
+          flex-direction: column;
+          position: static;
+          transform: none;
+          border: none;
+          background: transparent;
+          margin-top: 0;
+          min-width: 0;
+          padding-left: 12px;
+        }
+
+        .dropdown a {
+          color: #fff3f2;
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+      }
+
+      /* Footer bar - maroon */
+      .enter-footer {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Bottom gray line */
+      .bottom-line {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 132px;
+        height: 3px;
+        background: #4b4b4b;
+        z-index: 50;
+      }
+
+      /* Hide any content below footer bar */
+      .footer-mask {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 40px;
+        background: #ffffff;
+        z-index: 49;
+        pointer-events: none;
+      }
+
+      .resources-content {
+        position: absolute;
+        top: 100px;
+        left: 0;
+        right: 0;
+        bottom: 80px;
+        overflow-y: auto;
+        padding: 0 4%;
+      }
+
+      .resources-container {
+        width: 100%;
+        max-width: 1342px;
+        margin: 0 auto;
+        padding: 10px 0px 0px 0px;
+      }
+
+      .resources-box {
+        background: #fff3f2;
+        border: 1px solid #390606;
+        border-radius: 6px;
+        padding: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        width: 100%;
+        margin-top: 30px;
+      }
+
+      .resources-box-title {
+        font-family: "EB Garamond", serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #390606;
+        text-align: center;
+        line-height: normal;
+      }
+
+      .resources-title {
+        font-family: "EB Garamond", serif;
+        font-size: 24px;
+        color: #976262;
+        margin: 40px 0 50px 0;
+        text-align: center;
+      }
+
+      .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        max-height: 500px;
+        margin: 30px auto 60px;
+      }
+
+      .resource-card {
+        background: #ffffff;
+        border: 1px solid #390606;
+        border-radius: 10px;
+        padding: 24px;
+        max-height: 225px;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+      }
+
+      .resource-card:hover {
+        box-shadow: 0 4px 12px rgba(57, 6, 6, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .resource-card h3 {
+        font-family: "EB Garamond", serif;
+        font-size: 24px;
+        color: #390606;
+        margin: 0 0 12px 0;
+      }
+
+      .resource-card p {
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.6;
+        margin: 0 0 16px 0;
+      }
+
+      .resource-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .resource-link {
+        display: inline-block;
+        padding: 10px 12px;
+        background: #f5f5f5;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        color: #390606;
+        text-decoration: none;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .resource-link:hover {
+        background: #390606;
+        color: #ffffff;
+        border-color: #390606;
+      }
+
+      .contact-cta {
+        text-align: center;
+        margin: auto 0 40px;
+        padding: 0 0 50px 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .contact-cta p {
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        color: #390606;
+        margin: 0 0 8px 0;
+        line-height: 1.6;
+      }
+
+      .contact-cta a {
+        display: inline;
+        padding: 0;
+        background: transparent;
+        color: #390606;
+        text-decoration: underline;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .contact-cta a:hover {
+        background: transparent;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+        .resources-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .resources-title {
+          font-size: 36px;
+          margin: 30px 0 30px 0;
+        }
+
+        .resources-content {
+          top: 80px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .resources-grid {
+          max-height: none;
+        }
+
+        .contact-cta {
+          display: block;
+          margin: 20px 0 40px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="home-container">
+      <!-- Top Nav Bar -->
+      <nav class="home-nav" data-name="top bar">
+        <a href="index.html" class="matchfolio-logo">the match parlor</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+        <div class="nav-menu">
+          <div class="nav-item">
+            <a href="home.html">home</a>
+            <div class="dropdown">
+              <a href="contact.html">contact us</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="find.html">find</a>
+            <div class="dropdown">
+              <a href="find.html?type=search">search</a>
+              <a href="trade.html">trade</a>
+              <a href="map.html">map</a>
+            </div>
+          </div>
+          <a href="share.html">share</a>
+          <div class="nav-item">
+            <a href="learn.html">learn</a>
+            <div class="dropdown">
+              <a href="learn.html?type=articles">articles</a>
+              <a href="collector-resources.html" class=active">collector resources</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="resources-content">
+        <div class="resources-container">
+          <div class="resources-box">
+            <p class="resources-box-title">collector resources</p>
+          </div>
+        </div>
+
+        <div class="resources-grid">
+          <!-- organizations & clubs -->
+          <div class="resource-card">
+            <h3>organizations & clubs</h3>
+            <p>join communities dedicated to matchbook and matchbox collection and connect with fellow collectors to stay updated on the hobby</p>
+            <div class="resource-links">
+              <a href="https://matchcover.org" class="resource-link" target="_blank">RMS matchcover collectors club</a>
+              <a href="https://www.phillumeny.com/" class="resource-link" target="_blank">british matchbox label and bookmatch society</a>
+              <a href="https://angelusmatchcover.com/" class="resource-link" target="_blank">angelus matchcover club</a>
+            </div>
+          </div>
+
+          <!-- online marketplaces -->
+          <div class="resource-card">
+            <h3>buy & sell</h3>
+            <p>discover platforms where collectors buy, sell, and trade matchbooks, matchboxes, and matchcovers from around the world</p>
+            <div class="resource-links">
+              <a href="https://www.ebay.com/sch/i.html?_nkw=matchbooks&_sacat=0&_from=R40&_trksid=p4439441.m570.l1313" class="resource-link" target="_blank">eBay</a>
+              <a href="https://www.etsy.com/market/matchbox" class="resource-link" target="_blank">etsy</a>
+            </div>
+          </div>
+
+          <!-- Databases & Catalogs -->
+          <div class="resource-card">
+            <h3>databases & catalogs</h3>
+            <p>reference databases and comprehensive catalogs to identify your matchbook and matchcover collection and find new additions</p>
+            <div class="resource-links">
+              <a href="https://matchbooktraveler.com/" class="resource-link" target="_blank">matchbooktraveler</a>
+              <a href="https://matchbookdirectory.com/" class="resource-link" target="_blank">matchbook directory</a>
+              <a href="https://lileks.com/" class="resource-link" target="_blank">lileks</a>
+            </div>
+          </div>
+
+          <!-- Communities & Forums -->
+          <div class="resource-card">
+            <h3>forums & communities</h3>
+            <p>connect with other collectors online, share your finds, ask questions, and learn from experienced collectors in active forums</p>
+            <div class="resource-links">
+              <a href="https://www.reddit.com/r/matchbookcollectors/" class="resource-link" target="_blank">reddit</a>
+              <a href="https://www.facebook.com/groups/1676182432617105/" class="resource-link" target="_blank">facebook</a>
+            </div>
+          </div>
+
+          <!-- museums & collections -->
+          <div class="resource-card">
+            <h3>museums & exhibitions</h3>
+            <p>explore world-class collections and exhibitions and visit museums that showcase the history and artistry of matchbooks and matchcovers</p>
+            <div class="resource-links">
+              <a href="https://www.theworldsmatchbookmuseumltd.com/" class="resource-link" target="_blank">world's matchbook museum, australia</a>
+              <a href="https://www.phillumeny.com/exhibition/" class="resource-link" target="_blank">may 26th, online and physical exhibition</a>
+            </div>
+          </div>
+
+          <!-- Educational Resources -->
+          <div class="resource-card">
+            <h3>learning & history</h3>
+            <p>deepen your knowledge about matchbook history, manufacturing, design movements, and cultural significance throughout the 20th century</p>
+            <div class="resource-links">
+              <a href="https://matchpro.org/" class="resource-link" target="_blank">the matchcover vault</a>
+              <a href="https://queensledger.com/2025/08/07/matchbooks-a-work-of-commercial-art-telling-a-story/" class="resource-link" target="_blank">queens ledger</a>
+              <a href="https://blog.ohwhatamatch.com/articles/00ba7bc3-0e41-4ea8-848d-b0ed02804b81/" class="resource-link" target="_blank">oh! what a match</a>
+              <a href="https://ddbean.com/category/match-history/" class="resource-link" target="_blank">d.d. bean</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="contact-cta">
+          <p>know of a resource that should be added? <a href="contact.html">suggest it here</a></p>
+        </div>
+      </main>
+
+      <!-- Bottom Bar Footer -->
+      <footer class="enter-footer" data-name="bottom bar">
+      </footer>
+
+      <div class="footer-mask" aria-hidden="true"></div>
+
+      <!-- Bottom gray line -->
+      <div class="bottom-line"></div>
+    </div>
+
+    <script>
+      (() => {
+        const nav = document.querySelector(".home-nav");
+        const menuToggle = document.querySelector(".menu-toggle");
+        if (!nav || !menuToggle) return;
+
+        const closeMenu = () => {
+          nav.classList.remove("nav-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        };
+
+        menuToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = nav.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!nav.contains(event.target)) closeMenu();
+        });
+
+        nav.querySelectorAll(".nav-menu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (window.innerWidth <= 1024) closeMenu();
+          });
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 1024) closeMenu();
+        });
+      })();
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>
