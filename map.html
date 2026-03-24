@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>the match parlor - Map</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Map page specific styles */
+      .home-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: #ffffff;
+      }
+
+      /* Top nav bar - maroon */
+      .home-nav {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4%;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      /* the match parlor logo button */
+      .matchfolio-logo {
+        position: absolute;
+        left: 4%;
+        background: url("images/logocorner.png") center / cover no-repeat;;;
+        border: 0px;
+        border-radius: 0px;
+        padding: 2px 15px;
+        text-decoration: none;
+        color: #390606;
+        font-family: "comfortaa", sans-serif;
+        font-size: 40px;
+        font-weight: 300;
+        transition: all 0.25s ease;
+      }
+
+      .matchfolio-logo:hover {
+        background: url("images/logocorner.png") center / cover no-repeat;;;
+      }
+
+      /* Navigation menu */
+      .nav-menu {
+        position: absolute;
+        left: calc(4% + 340px);
+        right: calc(4% + 15px);
+        display: flex;
+        justify-content: flex-end;
+        gap: clamp(16px, 4vw, 80px);
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .nav-menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 20px;
+        font-weight: 50;
+        transition: opacity 0.2s ease;
+        padding: 4px 12px;
+        border: 2px solid transparent;
+        border-radius: 6px;
+      }
+
+      .nav-menu a:hover {
+        opacity: 0.8;
+      }
+
+      /* Active/highlighted nav link */
+      .nav-menu a.active {
+        background: transparent;
+        color: #ffffff;
+        border-color: transparent;
+      }
+
+      .nav-menu a.active:hover {
+        background: transparent;
+        opacity: 0.8;
+      }
+
+      /* Dropdown menu for find */
+      .nav-item {
+        position: relative;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #390606;
+        border: 2px solid #390606;
+        border-radius: 6px;
+        margin-top: 4px;
+        min-width: 150px;
+        z-index: 1001;
+      }
+
+      .nav-item:hover .dropdown {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dropdown a {
+        color: #ffffff;
+        padding: 10px 16px;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 16px;
+        font-weight: 50;
+        border: none;
+        border-radius: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .dropdown a:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .dropdown a:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+
+      .dropdown a:hover {
+        background: #390606;
+        opacity: 1;
+      }
+
+      .menu-toggle {
+        display: none;
+        margin-left: auto;
+        margin-bottom: 5px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px) {
+        .home-nav {
+          --mobile-nav-height: calc(30px * 0.93);
+          height: var(--mobile-nav-height);
+          justify-content: flex-end;
+        }
+
+        .matchfolio-logo {
+          height: calc(var(--mobile-nav-height) * 1.3);
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 30px;
+          border: 0px;
+          border-radius: 0px;
+          padding: 2px 15px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 4%;
+          right: 4%;
+          background: #390606;
+          border: 1px solid #390606;
+          border-radius: 8px;
+          padding: 8px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+          z-index: 1002;
+        }
+
+        .home-nav.nav-open .nav-menu {
+          display: flex;
+        }
+
+        .nav-menu > a,
+        .nav-item > a {
+          display: block;
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 18px;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .dropdown {
+          display: flex;
+          flex-direction: column;
+          position: static;
+          transform: none;
+          border: none;
+          background: transparent;
+          margin-top: 0;
+          min-width: 0;
+          padding-left: 12px;
+        }
+
+        .dropdown a {
+          color: #fff3f2;
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .home-nav {
+          --mobile-nav-height: calc(30px * 0.93);
+          height: var(--mobile-nav-height);
+          justify-content: flex-end;
+        }
+
+        .matchfolio-logo {
+          height: calc(var(--mobile-nav-height) * 1.3);
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 30px;
+          border: 0px;
+          border-radius: 0px;
+          padding: 2px 15px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 4%;
+          right: 4%;
+          background: #390606;
+          border: 1px solid #390606;
+          border-radius: 8px;
+          padding: 8px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+          z-index: 1002;
+        }
+
+        .home-nav.nav-open .nav-menu {
+          display: flex;
+        }
+
+        .nav-menu > a,
+        .nav-item > a {
+          display: block;
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 18px;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .dropdown {
+          display: flex;
+          flex-direction: column;
+          position: static;
+          transform: none;
+          border: none;
+          background: transparent;
+          margin-top: 0;
+          min-width: 0;
+          padding-left: 12px;
+        }
+
+        .dropdown a {
+          color: #fff3f2;
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+      }
+
+      /* Footer bar - maroon */
+      .enter-footer {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Bottom gray line */
+      .bottom-line {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 132px;
+        height: 3px;
+        background: #4b4b4b;
+        z-index: 50;
+      }
+
+      /* Hide any content below footer bar */
+      .footer-mask {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 40px;
+        background: #ffffff;
+        z-index: 49;
+        pointer-events: none;
+      }
+
+      /* Map page content (positioning matches trade page) */
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .map-content {
+        position: absolute;
+        top: 100px;
+        left: 0;
+        right: 0;
+        bottom: 80px;
+        padding: 0 4%;
+        overflow-y: auto;
+      }
+
+      .map-section {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .map-section-title {
+        font-family: "comfortaa", sans-serif;
+        font-size: 42px;
+        font-weight: 300;
+        color: #390606;
+        margin: 0 0 0 0;
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        transform: translateY(3px);
+        background: #ffffff;
+        padding: 0 10px;
+        display: inline-block;
+        left: 50%;
+        transform: translateX(-50%) translateY(3px);
+        text-transform: lowercase;
+      }
+
+      @media (max-width: 1024px) {
+        .map-section-title {
+          font-size: 30px !important;
+          bottom: 5px
+        }
+      }
+
+      .map-filters-wrap {
+        margin-bottom: 16px;
+        margin-top: -16px;
+        padding: 28px 16px 16px 16px;
+        background: #ffffff;
+        border: 1px solid #390606;
+        border-radius: 15px;
+        z-index: 1;
+      }
+
+      .map-filters-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .map-filters-title {
+        display: none;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #390606;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .toggle-map-filters-btn {
+        display: none;
+        padding: 1px 4px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        background: #390606;
+        color: #ffffff;
+        border: 1px solid #390606;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+
+      .toggle-map-filters-btn:hover {
+        background: #fff3f2;
+        color: #390606;
+      }
+
+      .map-filters-wrap.is-collapsed .toggle-map-filters-btn {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .map-filters-fields {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+
+      .map-filters-wrap.is-collapsed {
+        padding: 10px 16px;
+        margin-bottom: 8px;
+      }
+
+      .map-filters-wrap.is-collapsed .map-filters-fields {
+        display: none;
+      }
+
+      .map-filter-placeholder {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1;
+        min-width: 150px;
+        padding: 8px 12px;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        border: 1px solid #390606;
+        border-radius: 6px;
+        background: #fff3f2;
+        color: #000000;
+        text-align: left;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .map-filter-placeholder:hover {
+        background: #fff3f2;
+      }
+
+      @media (max-width: 1024px) {
+        .map-filters-title {
+          display: inline;
+        }
+
+        .toggle-map-filters-btn {
+          display: inline-block;
+        }
+      }
+
+      .details-panel {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 340px;
+        height: 100vh;
+        max-height: none;
+        background: #ffffff;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        overflow-y: auto;
+        transform: translateX(500px);
+        transition: transform 0.3s ease;
+        z-index: 1001;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .details-panel.open {
+        transform: translateX(0);
+      }
+
+      .close-details-btn {
+        display: flex;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 36px;
+        height: 36px;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #390606;
+        border-radius: 50%;
+        background: #ffffff;
+        color: #390606;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 1002;
+      }
+
+      .details-content {
+        margin-top: 0;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        color: #2f2f2f;
+      }
+
+      .details-content h2 {
+        font-family: "comfortaa", sans-serif;
+        font-weight: 300;
+        font-size: 24px;
+        color: #390606;
+        margin: 0 0 20px 0;
+        word-break: break-word;
+        text-align: center;
+      }
+
+      .detail-item {
+        margin-bottom: 16px;
+      }
+
+      .detail-label {
+        font-weight: 600;
+        color: #390606;
+        margin-bottom: 4px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .detail-value {
+        word-break: break-word;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 1024px) {
+        .details-panel {
+          position: fixed !important;
+          top: 0 !important;
+          right: 0 !important;
+          width: min(86vw, 360px) !important;
+          height: 100vh !important;
+          max-height: none !important;
+          transform: translateX(105%) !important;
+          border-radius: 0 !important;
+          z-index: 10000 !important;
+          padding: 0 0 50px 0 !important;
+          box-sizing: border-box !important;
+          overflow-y: auto !important;
+          border: none !important;
+          box-shadow: none !important;
+        }
+
+        .details-panel.open {
+          transform: translateX(0) !important;
+        }
+
+        .close-details-btn {
+          display: flex !important;
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          width: 36px;
+          height: 36px;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid #390606;
+          border-radius: 50%;
+          background: #ffffff;
+          color: #390606;
+          font-size: 24px;
+          font-weight: bold;
+          line-height: 1;
+          cursor: pointer;
+          z-index: 10001;
+        }
+
+        .details-content {
+          margin-top: 0 !important;
+          padding: 16px;
+          padding-top: 56px;
+        }
+      }
+
+      /* Map iframe styling */
+      .map-wrapper {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .map-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 220px;
+        border: 1px solid #390606;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="home-container">
+      <!-- Top Nav Bar -->
+      <nav class="home-nav" data-name="top bar">
+        <a href="index.html" class="matchfolio-logo">the match parlor</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+        <div class="nav-menu">
+          <div class="nav-item">
+            <a href="home.html">home</a>
+            <div class="dropdown">
+              <a href="contact.html">contact us</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="find.html">find</a>
+            <div class="dropdown">
+              <a href="find.html?type=search">search</a>
+              <a href="trade.html">trade</a>
+              <a href="map.html">map</a>
+            </div>
+          </div>
+          <a href="share.html">share</a>
+          <div class="nav-item">
+            <a href="learn.html">learn</a>
+            <div class="dropdown">
+              <a href="learn.html?type=articles">articles</a>
+              <a href="collector-resources.html">collector resources</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="map-content">
+        <div class="map-section">
+          <h1 class="map-section-title">match map</h1>
+          <div class="map-filters-wrap" aria-label="Map filters">
+            <div class="map-filters-header">
+              <h2 class="map-filters-title">details</h2>
+              <button class="toggle-map-filters-btn" type="button" aria-label="Toggle filters" aria-expanded="true">hide details</button>
+            </div>
+            <div class="map-filters-fields">
+              <button id="mapHowItWorksBtn" class="map-filter-placeholder" type="button">how the map works</button>
+              <a class="map-filter-placeholder" href="share.html">add to the map</a>
+              <a
+                class="map-filter-placeholder"
+                href="https://www.google.com/maps/d/u/0/viewer?mid=1G7yinXhxtQvnKGwNThiRLrg8ab9MGw8&ll=40.72015267412635%2C-74.00244502199185&z=13"
+                target="_blank"
+                rel="noopener noreferrer"
+              >save to your phone</a>
+            </div>
+          </div>
+
+          <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1G7yinXhxtQvnKGwNThiRLrg8ab9MGw8&ehbc=2E312F" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </main>
+
+      <div id="detailsPanel" class="details-panel" aria-hidden="true">
+        <button id="closeDetailsBtn" class="close-details-btn" type="button" aria-label="Close details panel">×</button>
+        <div id="detailsContent" class="details-content">
+          <h2>how the map works</h2>
+
+          <div class="detail-item">
+            <div class="detail-label">Update schedule</div>
+            <div class="detail-value">the community map is reviewed and updated monthly using the newest collector submissions.</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Availability status</div>
+            <div class="detail-value">
+              <strong>available</strong>: matches are currently available.<br />
+              <strong>not available</strong>: no matches available right now.<br />
+              <strong>used to be available</strong>: matches were previously available but are no longer confirmed.<br />
+              <strong>why we do this</strong>: locations often change in terms of match availability, so even though something might say not available, you might get lucky with matches there!. if you have any updates on locations, please submit them <a href="share.html">here</a>! 
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Using the map in Google Maps</div>
+            <div class="detail-value">after tapping “save to your phone,” the map should open automatically in google maps. to refer to in the future, open the Google Maps app and go to <strong>You</strong> → scroll down to <strong>Maps</strong>. Your saved map will appear there.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar Footer -->
+      <footer class="enter-footer" data-name="bottom bar">
+      </footer>
+
+      <div class="footer-mask" aria-hidden="true"></div>
+
+      <!-- Bottom gray line -->
+      <div class="bottom-line"></div>
+    </div>
+
+    <script>
+      (() => {
+        const nav = document.querySelector(".home-nav");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const mapWrapper = document.querySelector(".map-wrapper");
+        const mapIframe = document.querySelector(".map-wrapper iframe");
+        const footer = document.querySelector(".enter-footer");
+        const detailsPanel = document.getElementById("detailsPanel");
+        const openDetailsBtn = document.getElementById("mapHowItWorksBtn");
+        const closeDetailsBtn = document.getElementById("closeDetailsBtn");
+        const filtersWrap = document.querySelector(".map-filters-wrap");
+        const toggleFiltersBtn = document.querySelector(".toggle-map-filters-btn");
+
+        if (!nav || !menuToggle) return;
+
+        const syncMapIframeHeight = () => {
+          if (!mapWrapper || !mapIframe || !footer) return;
+
+          const wrapperTop = mapWrapper.getBoundingClientRect().top;
+          const footerTop = footer.getBoundingClientRect().top;
+          const availableHeight = Math.floor(footerTop - 20 - wrapperTop);
+          const clampedHeight = Math.max(220, availableHeight);
+
+          mapWrapper.style.height = `${clampedHeight}px`;
+          mapWrapper.style.maxHeight = `${clampedHeight}px`;
+          mapIframe.style.height = `${clampedHeight}px`;
+          mapIframe.style.maxHeight = `${clampedHeight}px`;
+        };
+
+        const closeMenu = () => {
+          nav.classList.remove("nav-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        };
+
+        const openDetails = () => {
+          if (!detailsPanel) return;
+          detailsPanel.classList.add("open");
+          detailsPanel.setAttribute("aria-hidden", "false");
+        };
+
+        const closeDetails = () => {
+          if (!detailsPanel) return;
+          detailsPanel.classList.remove("open");
+          detailsPanel.setAttribute("aria-hidden", "true");
+        };
+
+        const syncFilterToggleUi = () => {
+          if (!filtersWrap || !toggleFiltersBtn) return;
+          const isCollapsed = filtersWrap.classList.contains("is-collapsed");
+          toggleFiltersBtn.setAttribute("aria-expanded", String(!isCollapsed));
+          toggleFiltersBtn.textContent = isCollapsed ? "+" : "hide details";
+        };
+
+        const handleFilterToggle = () => {
+          if (!filtersWrap || !toggleFiltersBtn) return;
+          filtersWrap.classList.toggle("is-collapsed");
+          syncFilterToggleUi();
+          syncMapIframeHeight();
+          window.requestAnimationFrame(syncMapIframeHeight);
+        };
+
+        menuToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = nav.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!nav.contains(event.target)) closeMenu();
+        });
+
+        if (openDetailsBtn) {
+          openDetailsBtn.addEventListener("click", openDetails);
+        }
+
+        if (closeDetailsBtn) {
+          closeDetailsBtn.addEventListener("click", closeDetails);
+        }
+
+        if (detailsPanel) {
+          document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closeDetails();
+          });
+        }
+
+        if (toggleFiltersBtn) {
+          toggleFiltersBtn.addEventListener("click", handleFilterToggle);
+        }
+
+        syncFilterToggleUi();
+
+        nav.querySelectorAll(".nav-menu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (window.innerWidth <= 1024) closeMenu();
+          });
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 1024) closeMenu();
+          syncMapIframeHeight();
+        });
+
+        syncMapIframeHeight();
+        window.requestAnimationFrame(syncMapIframeHeight);
+      })();
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>
