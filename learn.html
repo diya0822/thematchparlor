@@ -35,9 +35,9 @@
         position: absolute;
         left: 4%;
         background: #ffffff;
-        border: 2px solid #390606;
-        border-radius: 15px;
-        padding: 2px 60px;
+        border: 0px;
+        border-radius: 0px;
+        padding: 2px 15px;
         text-decoration: none;
         color: #390606;
         font-family: "EB Garamond", serif;
@@ -167,8 +167,9 @@
           align-items: center;
           box-sizing: border-box;
           font-size: 30px;
-          padding: 2px 18px;
-          border-radius: 10px;
+          border: 0px;
+          border-radius: 0px;
+          padding: 2px 15px;
           max-width: calc(100% - 100px);
           white-space: nowrap;
           overflow: hidden;
@@ -312,6 +313,7 @@
       /* Article Carousel Styles */
       .articles-section {
         position: relative;
+        top: 30px;
         width: 100%;
         max-width: 1342px;
         margin: 0 auto;
@@ -376,6 +378,7 @@
         display: flex;
         flex-direction: column;
         aspect-ratio:10 / 15;
+        min-height: 60%;
         max-height: 70%;
         cursor: pointer;
         transition: transform 0.2s;
@@ -491,10 +494,6 @@
       @media (max-width: 768px) {
         .learn-content {
           top: 80px;
-        }
-
-        .articles-section {
-          top: -40px;
         }
       }
     </style>
