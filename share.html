@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>the match parlor - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Home page specific styles */
+      .home-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: #ffffff;
+      }
+
+      /* Top nav bar - maroon */
+      .home-nav {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4%;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      /* the match parlor logo button */
+      .matchfolio-logo {
+        position: absolute;
+        left: 4%;
+        background: url("images/logocorner.png") center / cover no-repeat;;;
+        border: 0px;
+        border-radius: 0px;
+        padding: 2px 15px;
+        text-decoration: none;
+        color: #390606;
+        font-family: "comfortaa", sans-serif;
+        font-size: 40px;
+        font-weight: 300;
+        transition: all 0.25s ease;
+      }
+
+      .matchfolio-logo:hover {
+        background: url("images/logocorner.png") center / cover no-repeat;;;
+      }
+
+      /* Navigation menu */
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 4%;
+        right: 4%;
+        background: #390606;
+        border: 1px solid #390606;
+        border-radius: 8px;
+        padding: 8px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        z-index: 1002;
+      }
+
+      .home-nav.nav-open .nav-menu {
+        display: flex;
+      }
+
+      .nav-menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 20px;
+        font-weight: 50;
+        transition: opacity 0.2s ease;
+        padding: 4px 12px;
+        border: 2px solid transparent;
+        border-radius: 6px;
+      }
+
+      .nav-menu a:hover {
+        opacity: 0.8;
+      }
+
+      /* Active/highlighted nav link */
+      .nav-menu a.active {
+        background: transparent;
+        color: #ffffff;
+        border-color: transparent;
+      }
+
+      .nav-menu a.active:hover {
+        background: transparent;
+        opacity: 0.8;
+      }
+
+      /* Dropdown menu for find */
+      .nav-item {
+        width: 100%;
+      }
+
+      .dropdown {
+        display: flex;
+        flex-direction: column;
+        position: static;
+        transform: none;
+        border: none;
+        background: transparent;
+        margin-top: 0;
+        min-width: 0;
+        padding-left: 12px;
+      }
+
+      .nav-item:hover .dropdown {
+        display: flex;
+      }
+
+      .dropdown a {
+        color: #ffffff;
+        padding: 10px 16px;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 16px;
+        font-weight: 50;
+        border: none;
+        border-radius: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .dropdown a:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .dropdown a:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+
+      .dropdown a:hover {
+        background: #390606;
+        opacity: 1;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        margin-left: auto;
+        margin-bottom: 5px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px) {
+        html,
+        body {
+          height: 100%;
+          overflow: hidden;
+          overscroll-behavior: none;
+        }
+
+        .home-nav {
+          --mobile-nav-height: calc(30px * 0.93);
+          height: var(--mobile-nav-height);
+          justify-content: flex-end;
+        }
+
+        .matchfolio-logo {
+          height: calc(var(--mobile-nav-height) * 1.2);
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 30px;
+          border: 0px;
+          padding: 2px 15px;
+          border-radius: 0px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 4%;
+          right: 4%;
+          background: #390606;
+          border: 1px solid #390606;
+          border-radius: 8px;
+          padding: 8px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+          z-index: 1002;
+        }
+
+        .home-nav.nav-open .nav-menu {
+          display: flex;
+        }
+
+        .nav-menu > a,
+        .nav-item > a {
+          display: block;
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 18px;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .dropdown {
+          display: flex;
+          flex-direction: column;
+          position: static;
+          transform: none;
+          border: none;
+          background: transparent;
+          margin-top: 0;
+          min-width: 0;
+          padding-left: 12px;
+        }
+
+        .dropdown a {
+          color: #fff3f2;
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+
+        .home-container {
+          position: fixed;
+          inset: 0;
+          height: 100vh;
+          min-height: 100vh;
+          overflow: hidden;
+        }
+
+        @supports (height: 100dvh) {
+          .home-container {
+            height: 100dvh;
+            min-height: 100dvh;
+          }
+        }
+
+        main {
+          position: absolute !important;
+          top: 96px !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: calc(70px + env(safe-area-inset-bottom, 0px)) !important;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          padding: 18px 4% calc(166px + env(safe-area-inset-bottom, 0px)) !important;
+          box-sizing: border-box !important;
+          z-index: 1;
+          display: block;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .share-title {
+          position: relative !important;
+          left: 10px !important;
+          top: 15px !important;
+          margin: 0 0 0px 0 !important;
+          font-size: 30px !important;
+          display: inline-block;
+        }
+
+        .title-underline {
+          display: none;
+        }
+
+        .form-container {
+          position: relative !important;
+          left: 0 !important;
+          top: 0 !important;
+          width: 100% !important;
+          height: auto !important;
+          min-height: 670px !important;
+          padding: 48px 14px 18px !important;
+          margin-bottom: 14px !important;
+        }
+
+        .input-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        .input-row .input-group {
+          flex: 1 1 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+        }
+
+        .form-container .input-group > div {
+          flex-wrap: wrap;
+          gap: 10px !important;
+        }
+
+        .form-container .input-group > div .input-field {
+          width: 100% !important;
+          flex: 1 1 140px;
+        }
+
+        .form-container .input-group.location-name-group,
+        .form-container .input-group.location-address-group,
+        .form-container .input-group.date-found-group {
+          flex: 1 1 100% !important;
+          width: 100% !important;
+          max-width: none !important;
+          min-width: 0 !important;
+        }
+
+        .textarea-field {
+          height: 200px !important;
+        }
+
+        .upload-area {
+          height: 200px !important;
+        }
+
+        .preview-box {
+          position: relative !important;
+          left: 0 !important;
+          top: 0 !important;
+          width: 100% !important;
+          height: 460px !important;
+          margin-top: 12px !important;
+          margin-bottom: 8px;
+          display: flex !important;
+          z-index: 1000;
+        }
+
+        .mobile-submit-wrap {
+          display: flex !important;
+        }
+
+        .preview-items {
+          gap: 12px;
+          transform: scale(0.88);
+          transform-origin: center;
+        }
+
+        .connector-line {
+          display: flex !important;
+          position: relative !important;
+          left: 0 !important;
+          top: 0 !important;
+          width: 100% !important;
+          height: 44px !important;
+          margin: 4px 0 10px 0 !important;
+          align-items: center;
+          justify-content: center;
+          z-index: 1;
+        }
+
+        .connector-line svg {
+          display: none;
+        }
+
+        .connector-line::before,
+        .connector-line::after {
+          content: "";
+          width: 1px;
+          height: 74px;
+          background: #390606;
+          border-radius: 0;
+          z-index: 0;
+        }
+
+        .connector-line::before {
+          margin-right: 14px;
+        }
+
+        .connector-line::after {
+          margin-left: 14px;
+        }
+
+        .preview-box,
+        .connector-line {
+          display: none !important;
+        }
+      }
+
+      /* Footer bar - maroon */
+      .enter-footer {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      /* Bottom gray line */
+      .bottom-line {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 132px;
+        height: 3px;
+        background: #4b4b4b;
+        z-index: 50;
+      }
+
+      /* Hide any content below footer bar */
+      .footer-mask {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: calc(40px + env(safe-area-inset-bottom, 0px));
+        background: #ffffff;
+        z-index: 2050;
+        pointer-events: none;
+      }
+
+      /* Share page styles */
+      .share-title {
+        position: absolute;
+        left: 53px;
+        top: 96px;
+        font-family: "comfortaa", sans-serif;
+        font-size: 40px;
+        font-weight: 300;
+        color: #390606;
+        z-index: 200;
+        background: linear-gradient(to bottom, #ffffff, #ffffff);
+        padding: 0 5px;
+      }
+
+      .title-underline {
+        position: absolute;
+        left: 50px;
+        top: 108px;
+        z-index: 100;
+        width: 350px;
+        height: 26px;
+        background-image: url('https://www.figma.com/api/mcp/asset/606f64bc-52c3-45ad-9520-6276f6c74ac8');
+        background-size: cover;
+        display: none;
+      }
+
+      .form-container {
+        position: absolute;
+        left: 33px;
+        top: 129px;
+        width: 850px;
+        height: 520px;
+        background: #ffffff;
+        border: 1px solid #390606;
+        border-radius: 10px;
+        padding: 36px 20px;
+        box-sizing: border-box;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-label {
+        display: block;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #390606;
+        margin-bottom: 10px;
+        letter-spacing: -0.28px;
+        line-height: 20px;
+        min-height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .input-field {
+        width: 100%;
+        height: 50px;
+        background: #ffffff;
+        border: 1px solid #60a5fa;
+        border-radius: 6px;
+        padding: 0 12px;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        color: #9ca3af;
+        letter-spacing: -0.32px;
+        line-height: 26px;
+        box-sizing: border-box;
+      }
+
+      .input-field::placeholder {
+        color: #9ca3af;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: #60a5fa;
+      }
+
+      select.input-field {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 5% center;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5em;
+      }
+
+      input[type="date"].input-field {
+        color-scheme: light;
+        width: 100%;
+        min-width: 0;
+      }
+
+      input[type="date"].input-field::-webkit-calendar-picker-indicator {
+        filter: invert(0.6) brightness(1.2);
+        cursor: pointer;
+      }
+
+      .input-row {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .input-row .input-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0;
+        min-width: 0;
+      }
+
+      .input-row .input-group.date-found-group {
+        flex: 0 0 190px;
+        max-width: 190px;
+      }
+
+      .input-row .input-group.date-found-group .input-field {
+        width: 100%;
+        min-width: 0;
+      }
+
+      @media (max-width: 1024px) {
+        .input-row .input-group {
+          flex: 1 1 100% !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+        }
+
+        .input-row .input-group.date-found-group {
+          flex: 1 1 100% !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+        }
+
+        .input-row .input-group.date-found-group .input-field,
+        input[type="date"].input-field {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          display: block;
+          box-sizing: border-box;
+          -webkit-appearance: none;
+          appearance: none;
+        }
+      }
+
+      .textarea-field {
+        width: 100%;
+        height: 120px;
+        background: #ffffff;
+        border: 1px solid #60a5fa;
+        border-radius: 6px;
+        padding: 12px;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        color: #9ca3af;
+        letter-spacing: -0.32px;
+        line-height: 26px;
+        box-sizing: border-box;
+        resize: none;
+      }
+
+      .textarea-field::placeholder {
+        color: #9ca3af;
+      }
+
+      .upload-area {
+        width: 100%;
+        height: 120px;
+        background: #ffffff;
+        border: 1px dashed #60a5fa;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .upload-area:hover {
+        background: #f9fafb;
+      }
+
+      .upload-icon {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 12px;
+      }
+
+      .upload-text {
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        color: #9ca3af;
+        letter-spacing: -0.32px;
+        line-height: 26px;
+        text-align: center;
+      }
+
+      .upload-text .upload-link {
+        color: #2563eb;
+        text-decoration: none;
+      }
+
+      .upload-size {
+        font-family: "Inter", sans-serif;
+        font-size: 12px;
+        color: #9ca3af;
+        letter-spacing: -0.24px;
+        line-height: 20px;
+        margin-top: 8px;
+      }
+
+      .notes-description {
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        color: #6d7280;
+        letter-spacing: -0.32px;
+        line-height: 26px;
+        margin-bottom: 10px;
+      }
+
+      .notes-description .italic-text {
+        font-weight: bold;
+        font-style: italic;
+      }
+
+      .notes-description:empty {
+        display: none;
+        margin: 0;
+      }
+
+      .preview-box {
+        position: absolute;
+        left: 955px;
+        top: 129px;
+        width: 468px;
+        height: 520px;
+        background: #ffffff;
+        border: 1px solid #390606;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .preview-items {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        position: relative;
+      }
+
+      .preview-striker {
+        width: 220px;
+        z-index: 1000;
+        height: auto;
+        object-fit: contain;
+        position: relative;
+        z-index: 15
+      }
+
+      .preview-strikerpaper {
+        position: absolute;
+        width: 205px;
+        height: 36px;
+        object-fit: contain;
+        bottom: 17.5px;
+        left: 7px;
+        z-index: 10;
+      }
+
+      .preview-matchstick {
+        width: 21px;
+        height: auto;
+        object-fit: contain;
+        cursor: grab;
+        user-select: none;
+        --tx: 10px;
+        --ty: 30px;
+        transform: translate(var(--tx), var(--ty));
+        transition: transform 0.05s linear;
+        touch-action: none;
+        z-index: 20;
+      }
+
+      .preview-matchstick.is-dragging {
+        cursor: grabbing;
+        transform: translate(var(--tx), var(--ty)) rotate(-120deg);
+      }
+
+
+      .connector-line {
+        position: absolute;
+        left: 882px;
+        top: 259px;
+        width: 73px;
+        height: 250px;
+        z-index: 10;
+      }
+
+      .connector-line svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .submission-message {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translate(-50%, 12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 2px solid #390606;
+        border-radius: 10px;
+        padding: 16px 24px;
+        text-align: center;
+        z-index: 1700;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .submission-message.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+        pointer-events: auto;
+      }
+
+      .submission-message h2 {
+        font-family: "comfortaa", sans-serif;
+        font-size: 28px;
+        font-weight: 300;
+        color: #390606;
+        margin: 0 0 6px 0;
+      }
+
+      .submission-message p {
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        color: #6d7280;
+        margin: 0;
+        line-height: 20px;
+      }
+
+      .submission-message .confirmation-text {
+        font-size: 12px;
+        margin-top: 8px;
+        margin-bottom: 12px;
+      }
+
+      .submission-error {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translate(-50%, 12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 2px solid #ef4444;
+        border-radius: 10px;
+        padding: 16px 24px;
+        text-align: center;
+        z-index: 1700;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .submission-error.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+        pointer-events: auto;
+      }
+
+      .submission-error h2 {
+        font-family: "comfortaa", sans-serif;
+        font-size: 24px;
+        font-weight: 300;
+        color: #ef4444;
+        margin: 0 0 6px 0;
+      }
+
+      .submission-error p {
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        color: #6d7280;
+        margin: 0;
+        line-height: 20px;
+      }
+
+      .reset-form-btn {
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        color: #390606;
+        background-color: transparent;
+        border: 1.5px solid #390606;
+        border-radius: 6px;
+        padding: 8px 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 8px;
+      }
+
+      .reset-form-btn:hover {
+        background-color: #390606;
+        color: white;
+      }
+
+      .mobile-submit-wrap {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .mobile-submit-btn {
+        display: inline-block;
+        padding: 10px 14px;
+        margin-bottom: 0;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        background: #fff3f2;
+        color: #390606;
+        border: 1px dashed #390606;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .mobile-submit-btn:hover {
+        background: #fff3f2;
+        color: #000000;
+        border-color: #390606;
+      }
+
+      .mobile-submit-status {
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        color: #6d7280;
+      }
+
+      .mobile-submit-status.success {
+        color: #166534;
+      }
+
+      .mobile-submit-status.error {
+        color: #b91c1c;
+      }
+
+      @keyframes flameEngulf {
+        0% {
+          opacity: 0;
+          clip-path: polygon(
+            0% 100%, 0% 100%, 100% 100%, 100% 100%
+          );
+        }
+        15% {
+          opacity: 0.8;
+          clip-path: polygon(
+            0% 100%,
+            8% 88%, 16% 76%,
+            24% 66%, 36% 58%, 50% 52%, 64% 58%, 76% 66%, 84% 76%, 92% 88%,
+            100% 100%,
+            100% 100%, 0% 100%
+          );
+        }
+        35% {
+          opacity: 0.9;
+          clip-path: polygon(
+            0% 100%,
+            10% 86%, 18% 70%,
+            28% 56%, 40% 44%, 50% 36%, 60% 44%, 72% 56%, 82% 70%, 90% 86%,
+            100% 100%,
+            100% 100%, 0% 100%
+          );
+        }
+        55% {
+          opacity: 0.7;
+          clip-path: polygon(
+            0% 100%,
+            10% 88%, 20% 72%,
+            30% 58%, 42% 44%, 50% 34%, 58% 44%, 70% 58%, 80% 72%, 90% 88%,
+            100% 100%,
+            100% 100%, 0% 100%
+          );
+        }
+        75% {
+          opacity: 0.4;
+          clip-path: polygon(
+            0% 100%,
+            12% 90%, 22% 76%,
+            32% 62%, 44% 48%, 50% 40%, 56% 48%, 68% 62%, 78% 76%, 88% 90%,
+            100% 100%,
+            100% 100%, 0% 100%
+          );
+        }
+        100% {
+          opacity: 1;
+          clip-path: polygon(
+            0% 100%,
+            10% 88%, 20% 72%,
+            30% 58%, 42% 44%, 50% 34%, 58% 44%, 70% 58%, 80% 72%, 90% 88%,
+            100% 100%,
+            100% 100%, 0% 100%
+          );
+        }
+      }
+
+      @keyframes flameFlicker {
+        0%, 18%, 22%, 25%, 54%, 56%, 100% {
+          opacity: 0.9;
+        }
+        20%, 24%, 55% {
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes flameSway {
+        0% {
+          transform: translateX(0) skewX(0deg);
+        }
+        25% {
+          transform: translateX(-6px) skewX(-1.5deg);
+        }
+        50% {
+          transform: translateX(6px) skewX(1.5deg);
+        }
+        75% {
+          transform: translateX(-4px) skewX(-1deg);
+        }
+        100% {
+          transform: translateX(0) skewX(0deg);
+        }
+      }
+
+      @keyframes flameAppear {
+        0% {
+          opacity: 0;
+          transform: translateY(10px) scale(0.98);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .flame-container {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        z-index: 1500;
+        pointer-events: none;
+      }
+
+      .flame {
+        position: absolute;
+        bottom: -25%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 280px;
+        height: 400px;
+        opacity: 0;
+      }
+
+      .flame-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .flame-1.active {
+        opacity: 0.8;
+        animation: flameBounce 1.2s ease-in-out infinite;
+      }
+
+      .flame-1 {
+        width: 371px !important;
+        height: 530px !important;
+      }
+
+      .flame-left.active {
+        opacity: 0.8;
+        animation: flameBounce 1.2s ease-in-out infinite;
+      }
+
+      .flame-right.active {
+        opacity: 0.8;
+        animation: flameBounce 1.2s ease-in-out infinite;
+      }
+
+      .flame-left {
+        left: 15% !important;
+        width: 239px !important;
+        height: 398px !important;
+      }
+
+      .flame-right {
+        left: auto !important;
+        right: -25% !important;
+        width: 218px !important;
+        height: 365px !important;
+      }
+
+      @keyframes flameSway {
+        0%, 100% {
+          transform: translateX(-50%) translateY(0px);
+          opacity: 0.8;
+        }
+        25% {
+          transform: translateX(-50%) translateY(-8px);
+        }
+        50% {
+          transform: translateX(-50%) translateY(0px);
+          opacity: 0.8;
+        }
+        75% {
+          transform: translateX(-50%) translateY(-8px);
+        }
+      }
+
+      @keyframes flameAlternate {
+        0%, 100% {
+          left: 50%;
+          transform: translateX(-50%) scaleX(1) translateY(0px);
+          opacity: 0.8;
+        }
+        25% {
+          transform: translateX(-50%) scaleX(1) translateY(-8px);
+        }
+        50% {
+          left: 50%;
+          transform: translateX(-50%) scaleX(-1) translateY(0px);
+          opacity: 0.8;
+        }
+        75% {
+          transform: translateX(-50%) scaleX(-1) translateY(-8px);
+        }
+      }
+
+      @keyframes flameBounce {
+        0% {
+          transform: translateX(-50%) translateY(0);
+        }
+        40% {
+          transform: translateX(-50%) translateY(-16px);
+        }
+        70% {
+          transform: translateX(-50%) translateY(4px);
+        }
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="home-container">
+      <!-- Top Nav Bar -->
+      <nav class="home-nav" data-name="top bar">
+        <a href="index.html" class="matchfolio-logo">the match parlor</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+        <div class="nav-menu">
+          <div class="nav-item">
+            <a href="home.html">home</a>
+            <div class="dropdown">
+              <a href="contact.html">contact us</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="find.html">find matches</a>
+            <div class="dropdown">
+              <a href="find.html?type=search">list of matches</a>
+              <a href="map.html">map of matches</a>
+              <a href="trade.html" class="active">trade matches</a>
+            </div>
+          </div>
+          <a href="share.html">share a find</a>
+          <div class="nav-item">
+            <a href="learn.html">learn</a>
+            <div class="dropdown">
+              <a href="learn.html?type=articles">articles</a>
+              <a href="collector-resources.html">collector resources</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main>
+        <!-- Title -->
+        <h1 class="share-title">share your finds</h1>
+        <div class="title-underline"></div>
+
+        <!-- Left Form Container -->
+        <div class="form-container">
+          <!-- Row 1: Name and Email -->
+          <div class="input-row">
+            <div class="input-group">
+              <label class="input-label">name</label>
+              <div style="display: flex; gap: 16px;">
+                <input type="text" class="input-field" placeholder="first" style="width: 180px;" />
+                <input type="text" class="input-field" placeholder="last" style="width: 180px;" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label">email (kept private)*</label>
+              <input type="email" class="input-field" placeholder="philthelumenist@gmail.com" />
+            </div>
+          </div>
+
+          <!-- Row 2: Location Name, Type, Date Found -->
+          <div class="input-row">
+            <div class="input-group location-name-group">
+              <label class="input-label">location name</label>
+              <input type="text" class="input-field" placeholder="cool bar name" />
+            </div>
+            <div class="input-group">
+              <label class="input-label">location type</label>
+              <select class="input-field">
+                <option value="">select type</option>
+                <option value="restaurant">restaurant</option>
+                <option value="hotel">hotel</option>
+                <option value="bar">bar</option>
+                <option value="store">store</option>
+              </select>
+            </div>
+            <div class="input-group date-found-group">
+              <label class="input-label">date found</label>
+              <input type="date" class="input-field" />
+            </div>
+          </div>
+
+          <!-- Row 3: Location Address, Status, Item Type -->
+          <div class="input-row">
+            <div class="input-group location-address-group">
+              <label class="input-label">location address</label>
+              <input type="text" class="input-field" placeholder="123 flame rd, anytown, usa" />
+            </div>
+            <div class="input-group">
+              <label class="input-label">status</label>
+              <select class="input-field">
+                <option value="">select status</option>
+                <option value="matches-available">matches available</option>
+                <option value="matches-not-available">matches not available</option>
+                <option value="available-running-low">available (running low)</option>
+                <option value="used-to-be-available">used to be available</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label">item type</label>
+              <select class="input-field">
+                <option value="">select item type</option>
+                <option value="matchbook">matchbook</option>
+                <option value="matchbox">matchbox</option>
+                <option value="matchcover">matchcover</option>
+                <option value="matchcover-metal">matchcover (metal)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 4: Message and Photo Upload -->
+          <div class="input-row" style="align-items: flex-start;">
+            <div class="input-group" style="flex: 1;">
+              <label class="input-label">notes (optional)</label>
+              <textarea class="textarea-field" placeholder="share more details about your find like the cool story of how you got it, the manufacturer, estimated era, condition, or whatever else strikes you :)"></textarea>
+            </div>
+            <div class="input-group" style="flex: 1;">
+              <label class="input-label">photo (3 max)</label>
+              <div class="upload-area" id="uploadArea">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 15L12 3M12 3L8 7M12 3L16 7" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 15L3 18C3 19.6569 4.34315 21 6 21L18 21C19.6569 21 21 19.6569 21 18L21 15" stroke="#4b5563" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <p class="upload-text">
+                  drop here to attach or <a href="#" class="upload-link">upload</a>
+                </p>
+                <p class="upload-size">Max size: 10MB each (3 max)</p>
+                <input type="file" id="photoInput" multiple accept="image/*" style="display: none;" />
+              </div>
+              <div id="photoPreview" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;"></div>
+            </div>
+          </div>
+
+          <div class="mobile-submit-wrap">
+            <button type="button" class="mobile-submit-btn">submit find</button>
+            <p class="mobile-submit-status" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <!-- Connector Line -->
+        <div class="connector-line">
+          <svg viewBox="0 0 73 250" preserveAspectRatio="none">
+            <!-- Top horizontal line -->
+            <line x1="0" y1="50" x2="73" y2="50" stroke="#390606" stroke-width="12" stroke-linecap="butt"/>
+            <!-- Bottom horizontal line -->
+            <line x1="0" y1="200" x2="73" y2="200" stroke="#390606" stroke-width="12" stroke-linecap="butt"/>
+          </svg>
+        </div>
+
+        <!-- Right Preview Box -->
+        <div class="preview-box">
+          <div class="preview-items">
+            <img src="images/striker.png" alt="striker" class="preview-striker" />
+            <img src="images/newstrikerpaper.jpg" alt="strikerpaper" class="preview-strikerpaper" />
+            <img src="images/matchstickclear.jpg" alt="matchstick" class="preview-matchstick" />
+          </div>
+
+          <!-- Flame Overlay -->
+          <div class="flame-container">
+            <div class="flame flame-1">
+              <img src="images/flame 2.jpg" alt="flame" class="flame-img" />
+            </div>
+            <div class="flame flame-left">
+              <img src="images/flame 2.jpg" alt="flame left" class="flame-img" />
+            </div>
+            <div class="flame flame-right">
+              <img src="images/flame 2.jpg" alt="flame right" class="flame-img" />
+            </div>
+          </div>
+
+          <!-- Submission Message -->
+          <div class="submission-message">
+            <h2>thank you!</h2>
+            <p>your find has been shared</p>
+            <p class="confirmation-text">be on the lookout for a confirmation email</p>
+            <button class="reset-form-btn">submit another find</button>
+          </div>
+
+          <div class="submission-error">
+            <h2>submission failed</h2>
+            <p>we couldn’t send your find to the sheet. please try again.</p>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Bottom Bar Footer -->
+      <footer class="enter-footer" data-name="bottom bar">
+      </footer>
+
+      <div class="footer-mask" aria-hidden="true"></div>
+
+      <!-- Bottom gray line -->
+      <div class="bottom-line"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const CLOUDINARY_CLOUD_NAME = "";
+        const CLOUDINARY_UPLOAD_PRESET = "";
+        const MAX_PHOTO_COUNT = 3;
+        const MAX_PHOTO_SIZE_MB = 10;
+
+        const matchstick = document.querySelector(".preview-matchstick");
+        const previewBox = document.querySelector(".preview-box");
+        const strikerpaper = document.querySelector(".preview-strikerpaper");
+        const formContainer = document.querySelector(".form-container");
+        if (!matchstick) {
+          return;
+        }
+
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        // Form validation function
+        const validateForm = () => {
+          const inputs = formContainer.querySelectorAll('.input-field');
+          const requiredFields = [
+            { input: inputs[0], name: 'first name' },
+            { input: inputs[1], name: 'last name' },
+            { input: inputs[2], name: 'email' },
+            { input: inputs[3], name: 'location name' },
+            { input: inputs[4], name: 'location type' },
+            { input: inputs[5], name: 'date found' },
+            { input: inputs[6], name: 'location address' },
+            { input: inputs[7], name: 'status' },
+            { input: inputs[8], name: 'item type' }
+          ];
+
+          let isValid = true;
+          requiredFields.forEach(({ input, name }) => {
+            const value = input.value.trim();
+            
+            if (!value) {
+              isValid = false;
+              input.style.borderColor = '#ef4444';
+              input.style.backgroundColor = '#fee2e2';
+            } else {
+              input.style.borderColor = '#60a5fa';
+              input.style.backgroundColor = '#ffffff';
+            }
+          });
+          return isValid;
+        };
+
+        let startX = 0;
+        let startY = 0;
+        let baseX = 0;
+        let baseY = 0;
+        let baseRect = null;
+        let boxRect = null;
+        let isDragging = false;
+        let pointerId = null;
+        let wasColliding = false;
+        let selectedPhotoFiles = [];
+
+        const uploadArea = document.querySelector('#uploadArea');
+        const photoInput = document.querySelector('#photoInput');
+        const photoPreview = document.querySelector('#photoPreview');
+        const uploadLink = document.querySelector('.upload-link');
+        const mobileSubmitBtn = document.querySelector('.mobile-submit-btn');
+        const mobileSubmitStatus = document.querySelector('.mobile-submit-status');
+        let isSubmitting = false;
+
+        const isMobileView = () => window.innerWidth <= 1024;
+
+        const setMobileStatus = (message, type = '') => {
+          if (!mobileSubmitStatus) return;
+          mobileSubmitStatus.textContent = message || '';
+          mobileSubmitStatus.classList.remove('success', 'error');
+          if (type) {
+            mobileSubmitStatus.classList.add(type);
+          }
+        };
+
+        const renderPhotoPreview = () => {
+          if (!photoPreview) return;
+          photoPreview.innerHTML = '';
+
+          selectedPhotoFiles.forEach((file, index) => {
+            const preview = document.createElement('div');
+            preview.style.position = 'relative';
+            preview.style.width = '80px';
+            preview.style.height = '80px';
+
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            img.style.borderRadius = '6px';
+            img.style.border = '1px solid #60a5fa';
+
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '×';
+            removeBtn.style.position = 'absolute';
+            removeBtn.style.top = '-8px';
+            removeBtn.style.right = '-8px';
+            removeBtn.style.background = '#390606';
+            removeBtn.style.color = 'white';
+            removeBtn.style.border = 'none';
+            removeBtn.style.borderRadius = '50%';
+            removeBtn.style.width = '24px';
+            removeBtn.style.height = '24px';
+            removeBtn.style.cursor = 'pointer';
+            removeBtn.style.fontSize = '18px';
+            removeBtn.style.fontWeight = 'bold';
+            removeBtn.style.padding = '0';
+            removeBtn.style.display = 'flex';
+            removeBtn.style.alignItems = 'center';
+            removeBtn.style.justifyContent = 'center';
+
+            removeBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              selectedPhotoFiles.splice(index, 1);
+              renderPhotoPreview();
+            });
+
+            preview.appendChild(img);
+            preview.appendChild(removeBtn);
+            photoPreview.appendChild(preview);
+          });
+        };
+
+        const handlePhotoSelection = (files) => {
+          const incoming = Array.from(files || []).filter((file) => file.type.startsWith('image/'));
+          if (incoming.length === 0) {
+            return;
+          }
+
+          const remainingSlots = Math.max(0, MAX_PHOTO_COUNT - selectedPhotoFiles.length);
+          if (remainingSlots === 0) {
+            alert(`You can upload up to ${MAX_PHOTO_COUNT} photos.`);
+            return;
+          }
+
+          const filesToTry = incoming.slice(0, remainingSlots);
+          const validFiles = filesToTry.filter((file) => file.size <= MAX_PHOTO_SIZE_MB * 1024 * 1024);
+          const rejectedForSize = filesToTry.length - validFiles.length;
+
+          selectedPhotoFiles = [...selectedPhotoFiles, ...validFiles].slice(0, MAX_PHOTO_COUNT);
+          renderPhotoPreview();
+
+          if (rejectedForSize > 0) {
+            alert(`Some files were skipped because they exceed ${MAX_PHOTO_SIZE_MB}MB.`);
+          }
+
+          if (incoming.length > remainingSlots) {
+            alert(`Only ${MAX_PHOTO_COUNT} photos can be attached per submission.`);
+          }
+
+          if (photoInput) {
+            photoInput.value = '';
+          }
+        };
+
+        const uploadPhotosToCloudinary = async (files) => {
+          if (!Array.isArray(files) || files.length === 0) {
+            return [];
+          }
+
+          if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+            throw new Error('Photo upload is not configured yet. Add Cloudinary cloud name + upload preset in share.html.');
+          }
+
+          const uploadUrl = `https://api.cloudinary.com/v1_1/${encodeURIComponent(CLOUDINARY_CLOUD_NAME)}/image/upload`;
+
+          const uploads = files.map(async (file) => {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+            const response = await fetch(uploadUrl, {
+              method: 'POST',
+              body: formData,
+            });
+
+            const payload = await response.json();
+            if (!response.ok || !payload.secure_url) {
+              throw new Error(payload.error?.message || 'Photo upload failed');
+            }
+
+            return payload.secure_url;
+          });
+
+          return Promise.all(uploads);
+        };
+
+        const submitFind = async () => {
+          if (isSubmitting) {
+            return;
+          }
+
+          if (!validateForm()) {
+            setMobileStatus('please fill out all required fields.', 'error');
+            return;
+          }
+
+          isSubmitting = true;
+          if (mobileSubmitBtn) {
+            mobileSubmitBtn.disabled = true;
+            mobileSubmitBtn.textContent = 'submitting...';
+          }
+
+          const submissionError = document.querySelector('.submission-error');
+          const submissionMessage = document.querySelector('.submission-message');
+
+          if (submissionError) {
+            submissionError.classList.remove('show');
+          }
+          if (submissionMessage) {
+            submissionMessage.classList.remove('show');
+          }
+          setMobileStatus('');
+
+          const inputs = formContainer.querySelectorAll('.input-field');
+          const textarea = formContainer.querySelector('.textarea-field');
+
+          try {
+            const photoUrls = await uploadPhotosToCloudinary(selectedPhotoFiles);
+
+            const formData = {
+              firstName: inputs[0].value,
+              lastName: inputs[1].value,
+              email: inputs[2].value,
+              locationName: inputs[3].value,
+              locationType: inputs[4].value,
+              dateFound: inputs[5].value,
+              locationAddress: inputs[6].value,
+              status: inputs[7].value,
+              itemType: inputs[8].value,
+              notes: textarea.value,
+              photoUrls,
+            };
+
+            const response = await fetch('https://script.google.com/macros/s/AKfycbxmUTSTSr_LKN_ognADyK3OP3NpeBRnCdObh4839COjoEbSSvmsdlL3UV-ZFwz3Ak9jTg/exec', {
+              method: 'POST',
+              body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+              throw new Error('Non-OK response');
+            }
+
+            await response.json();
+
+            if (isMobileView()) {
+              setMobileStatus('your find was submitted successfully.', 'success');
+            } else {
+              const flames = document.querySelectorAll('.flame-1, .flame-left, .flame-right');
+              flames.forEach((flame) => flame.classList.add('active'));
+
+              if (submissionMessage) {
+                setTimeout(() => {
+                  submissionMessage.classList.add('show');
+                }, 1200);
+              }
+            }
+          } catch (error) {
+            console.error('Error submitting form:', error);
+            if (isMobileView()) {
+              setMobileStatus('failed to submit. please try again.', 'error');
+            } else if (submissionError) {
+              submissionError.classList.add('show');
+            }
+          } finally {
+            isSubmitting = false;
+            if (mobileSubmitBtn) {
+              mobileSubmitBtn.disabled = false;
+              mobileSubmitBtn.textContent = 'submit find';
+            }
+          }
+        };
+
+        const checkCollision = () => {
+          if (!matchstick || !strikerpaper) return false;
+          const matchstickRect = matchstick.getBoundingClientRect();
+          const strikerpaperRect = strikerpaper.getBoundingClientRect();
+          
+          return !(matchstickRect.right < strikerpaperRect.left || 
+                   matchstickRect.left > strikerpaperRect.right || 
+                   matchstickRect.bottom < strikerpaperRect.top || 
+                   matchstickRect.top > strikerpaperRect.bottom);
+        };
+
+        const onPointerMove = async (event) => {
+          if (!isDragging || !baseRect || !boxRect) {
+            return;
+          }
+          const dx = event.clientX - startX;
+          const dy = event.clientY - startY;
+          const desiredLeft = baseRect.left + dx;
+          const desiredTop = baseRect.top + dy;
+          const minLeft = boxRect.left;
+          const maxLeft = boxRect.right - baseRect.width;
+          const minTop = boxRect.top;
+          const maxTop = boxRect.bottom - baseRect.height;
+          const clampedLeft = clamp(desiredLeft, minLeft, maxLeft);
+          const clampedTop = clamp(desiredTop, minTop, maxTop);
+          const clampedDx = clampedLeft - baseRect.left;
+          const clampedDy = clampedTop - baseRect.top;
+          matchstick.style.setProperty("--tx", `${baseX + clampedDx}px`);
+          matchstick.style.setProperty("--ty", `${baseY + clampedDy}px`);
+          
+          const isColliding = checkCollision();
+          console.log('Dragging - wasColliding:', wasColliding, 'isColliding:', isColliding);
+          
+          if (wasColliding && !isColliding) {
+            console.log('Collision detected! Starting form submission...');
+            
+            dropMatchstick();
+            await submitFind();
+            
+            // Reset matchstick to original position immediately
+            matchstick.style.setProperty("--tx", "10px");
+            matchstick.style.setProperty("--ty", "30px");
+            baseX = 10;
+            baseY = 30;
+          }
+          
+          wasColliding = isColliding;
+        };
+
+        const dropMatchstick = () => {
+          if (!isDragging) {
+            return;
+          }
+          isDragging = false;
+          wasColliding = false;
+          matchstick.classList.remove("is-dragging");
+          matchstick.releasePointerCapture?.(pointerId);
+          document.removeEventListener("pointermove", onPointerMove);
+          document.removeEventListener("pointerdown", onDocumentPointerDown, true);
+          matchstick.style.setProperty("--tx", "10px");
+          matchstick.style.setProperty("--ty", "30px");
+          baseX = 10;
+          baseY = 30;
+        };
+
+        const onDocumentPointerDown = (event) => {
+          if (!isDragging) {
+            return;
+          }
+          dropMatchstick();
+        };
+
+        matchstick.addEventListener("pointerdown", (event) => {
+          event.preventDefault();
+          if (isDragging) {
+            return;
+          }
+          pointerId = event.pointerId;
+          isDragging = true;
+          matchstick.classList.add("is-dragging");
+          const currentTx = parseFloat(getComputedStyle(matchstick).getPropertyValue("--tx")) || 0;
+          const currentTy = parseFloat(getComputedStyle(matchstick).getPropertyValue("--ty")) || 0;
+          baseX = currentTx;
+          baseY = currentTy;
+          baseRect = matchstick.getBoundingClientRect();
+          boxRect = previewBox?.getBoundingClientRect() || null;
+          startX = event.clientX;
+          startY = event.clientY;
+          matchstick.setPointerCapture?.(pointerId);
+          document.addEventListener("pointermove", onPointerMove);
+          document.addEventListener("pointerdown", onDocumentPointerDown, true);
+        });
+
+        previewBox.addEventListener("pointerleave", (event) => {
+          dropMatchstick();
+        });
+
+        // Reset form button handler
+        const resetBtn = document.querySelector('.reset-form-btn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            // Remove active class from flames
+            const flames = document.querySelectorAll('.flame-1, .flame-left, .flame-right');
+            flames.forEach((flame) => flame.classList.remove('active'));
+            
+            // Hide submission message
+            const submissionMessage = document.querySelector('.submission-message');
+            if (submissionMessage) {
+              submissionMessage.classList.remove('show');
+            }
+
+            const submissionError = document.querySelector('.submission-error');
+            if (submissionError) {
+              submissionError.classList.remove('show');
+            }
+            
+            // Reset form fields
+            const inputs = formContainer.querySelectorAll('.input-field');
+            inputs.forEach(input => {
+              input.value = '';
+              input.style.borderColor = '#60a5fa';
+              input.style.backgroundColor = '#ffffff';
+            });
+            
+            // Reset textarea
+            const textarea = formContainer.querySelector('.textarea-field');
+            if (textarea) {
+              textarea.value = '';
+            }
+            
+            // Reset photo preview
+            if (photoInput) {
+              photoInput.value = '';
+            }
+            selectedPhotoFiles = [];
+            renderPhotoPreview();
+            setMobileStatus('');
+            
+            // Reset matchstick position
+            matchstick.style.setProperty("--tx", "10px");
+            matchstick.style.setProperty("--ty", "30px");
+            baseX = 10;
+            baseY = 30;
+            isDragging = false;
+            wasColliding = false;
+          });
+        }
+
+        // Photo upload handler
+
+        uploadLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          photoInput.click();
+        });
+
+        uploadArea.addEventListener('click', () => {
+          photoInput.click();
+        });
+
+        photoInput.addEventListener('change', (e) => {
+          handlePhotoSelection(e.target.files);
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          uploadArea.style.backgroundColor = '#f0f0f0';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+          uploadArea.style.backgroundColor = '#ffffff';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+          e.preventDefault();
+          uploadArea.style.backgroundColor = '#ffffff';
+          const files = e.dataTransfer.files;
+          const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+          handlePhotoSelection(imageFiles);
+        });
+
+        if (mobileSubmitBtn) {
+          mobileSubmitBtn.addEventListener('click', () => {
+            submitFind();
+          });
+        }
+
+        (() => {
+          const mainScroller = document.querySelector('main');
+          if (!mainScroller) return;
+
+          let touchStartY = 0;
+          let guardEnabled = false;
+
+          const handleTouchStart = (event) => {
+            touchStartY = event.touches[0]?.clientY ?? 0;
+          };
+
+          const handleTouchMove = (event) => {
+            const currentY = event.touches[0]?.clientY ?? touchStartY;
+            const deltaY = currentY - touchStartY;
+            const atTop = mainScroller.scrollTop <= 0;
+            const atBottom =
+              Math.ceil(mainScroller.scrollTop + mainScroller.clientHeight) >= mainScroller.scrollHeight;
+
+            if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+              event.preventDefault();
+            }
+          };
+
+          const handleDocumentTouchMove = (event) => {
+            if (!mainScroller.contains(event.target)) {
+              event.preventDefault();
+            }
+          };
+
+          const enableGuard = () => {
+            if (guardEnabled || window.innerWidth > 1024) return;
+            guardEnabled = true;
+            mainScroller.addEventListener('touchstart', handleTouchStart, { passive: true });
+            mainScroller.addEventListener('touchmove', handleTouchMove, { passive: false });
+            document.addEventListener('touchmove', handleDocumentTouchMove, { passive: false });
+          };
+
+          const disableGuard = () => {
+            if (!guardEnabled) return;
+            guardEnabled = false;
+            mainScroller.removeEventListener('touchstart', handleTouchStart);
+            mainScroller.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchmove', handleDocumentTouchMove);
+          };
+
+          const syncGuard = () => {
+            if (window.innerWidth <= 1024) {
+              enableGuard();
+            } else {
+              disableGuard();
+            }
+          };
+
+          syncGuard();
+          window.addEventListener('resize', syncGuard);
+        })();
+
+        (() => {
+          const nav = document.querySelector(".home-nav");
+          const menuToggle = document.querySelector(".menu-toggle");
+          if (!nav || !menuToggle) return;
+
+          const closeMenu = () => {
+            nav.classList.remove("nav-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+          };
+
+          menuToggle.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const isOpen = nav.classList.toggle("nav-open");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+          });
+
+          document.addEventListener("click", (event) => {
+            if (!nav.contains(event.target)) closeMenu();
+          });
+
+          nav.querySelectorAll(".nav-menu a").forEach((link) => {
+            link.addEventListener("click", () => {
+              if (window.innerWidth <= 1024) closeMenu();
+            });
+          });
+
+          window.addEventListener("resize", () => {
+            if (window.innerWidth > 1024) closeMenu();
+          });
+        })();
+      });
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>
