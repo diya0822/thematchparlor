@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>the match parlor - About</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      .home-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: #ffffff
+      }
+
+      .home-nav {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4%;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      .matchfolio-logo {
+        position: absolute;
+        left: 4%;
+        background: url("images/logocorner.png") center / cover no-repeat;
+        border: 0;
+        padding: 2px 15px;
+        text-decoration: none;
+        color: #390606;
+        font-family: "comfortaa", sans-serif;
+        font-size: 40px;
+        font-weight: 300;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        margin-left: auto;
+        margin-bottom: 5px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 4%;
+        right: 4%;
+        background: #390606;
+        border: 1px solid #390606;
+        border-radius: 8px;
+        padding: 8px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        z-index: 1002;
+      }
+
+      .home-nav.nav-open .nav-menu {
+        display: flex;
+      }
+
+      .nav-menu > a,
+      .nav-item > a {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 20px;
+        padding: 8px 12px;
+      }
+
+      .nav-item {
+        width: 100%;
+      }
+
+      .dropdown {
+        display: flex;
+        flex-direction: column;
+        position: static;
+        transform: none;
+        border: none;
+        background: transparent;
+        margin-top: 0;
+        min-width: 0;
+        padding-left: 12px;
+      }
+
+      .dropdown a {
+        color: #fff3f2;
+        text-decoration: none;
+        font-family: "eb", sans-serif;
+        font-size: 16px;
+        padding: 8px 12px;
+      }
+
+      .dropdown a.active {
+        text-decoration: none;
+      }
+
+      .about-content {
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+      }
+
+      .about-hero {
+        position: fixed;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(1100px, 92vw);
+        height: calc(100vh - 200px);
+        border: 1px solid #390606;
+        border-radius: 16px;
+        padding: 28px 24px;
+        background: linear-gradient(135deg, #fff4f2 0%, #ffffff 65%);
+        box-shadow: 0 8px 24px rgba(57, 6, 6, 0.08);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .about-kicker {
+        margin: 0 0 8px;
+        font-family: "Inter", sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #6b4c4c;
+      }
+
+      .about-title {
+        margin: 0 0 12px;
+        font-family: "comfortaa", sans-serif;
+        font-size: clamp(30px, 5vw, 48px);
+        font-weight: 300;
+        color: #390606;
+      }
+
+      .about-description {
+        margin: 0;
+        padding-bottom: 25px;
+        font-family: "Inter", sans-serif;
+        color: #4b4b4b;
+        line-height: 1.7;
+        font-size: 15px;
+      }
+
+      .about-grid {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 16px;
+      }
+
+      .about-card {
+        border: 1px solid #390606;
+        border-radius: 14px;
+        background: #ffffff;
+        padding: 18px;
+      }
+
+      .about-card h2 {
+        margin: 0 0 10px;
+        font-family: "comfortaa", sans-serif;
+        color: #390606;
+        font-size: 21px;
+        font-weight: 300;
+      }
+
+      .about-card p,
+      .about-card li {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        color: #4b4b4b;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .about-card ul {
+        margin: 0;
+        padding-left: 18px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .socials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .social-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px dashed #390606;
+        padding: 7px 12px;
+        text-decoration: none;
+        color: #390606;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+      }
+
+      .social-btn:hover {
+        background: #390606;
+        color: #ffffff;
+      }
+
+      .social-icon {
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+      }
+
+      .social-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+      }
+
+      .enter-footer {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #390606;
+      }
+
+      .bottom-line {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 132px;
+        height: 3px;
+        background: #4b4b4b;
+      }
+
+      .footer-mask {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 40px;
+        background: #ffffff;
+      }
+
+      @media (max-width: 900px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .matchfolio-logo {
+          font-size: 30px;
+          max-width: calc(100% - 100px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .about-content {
+          margin-top: 105px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="home-container">
+      <nav class="home-nav" data-name="top bar">
+        <a href="welcome.html" class="matchfolio-logo">the match parlor</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+        <div class="nav-menu">
+          <div class="nav-item">
+            <a href="home.html">home</a>
+            <div class="dropdown">
+              <a href="about.html" class="active">about</a>
+              <a href="contact%20us.html">contact us</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="find%20matchbooks.html">find matches</a>
+            <div class="dropdown">
+              <a href="find%20matchbooks.html?type=search">list of matches</a>
+              <a href="match%20map.html">map of matches</a>
+              <a href="trade%20matches.html">trade matches</a>
+            </div>
+          </div>
+          <a href="share%20a%20find.html">share a find</a>
+          <div class="nav-item">
+            <a href="learn.html">learn</a>
+            <div class="dropdown">
+              <a href="learn.html?type=articles">articles</a>
+              <a href="collector%20resources.html">collector resources</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main class="about-content">
+        <section class="about-hero">
+          <p class="about-kicker">about the project</p>
+          <h1 class="about-title">the match parlor</h1>
+          <div class="about-socials-callout">
+            <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+              <a class="social-btn" href="https://beliapp.co/app/diyadpatelx" target="_blank" rel="noopener noreferrer" aria-label="Visit Diya's Beli account">
+                <span class="social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="img" focusable="false">
+                    <path d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20zm-4 4h4.6c2.2 0 3.8 1.2 3.8 3.2c0 1.1-.6 2-1.6 2.5c1.3.4 2.1 1.4 2.1 2.9c0 2.1-1.7 3.4-4.2 3.4H8V6zm3.9 4.4c1 0 1.6-.5 1.6-1.2s-.6-1.1-1.6-1.1h-1.2v2.3h1.2zm.4 5.4c1.1 0 1.8-.5 1.8-1.3s-.7-1.3-1.8-1.3h-1.6v2.6h1.6z" />
+                  </svg>
+                </span>
+                <span>Beli</span>
+              </a>
+            </div>
+          </div>
+          <p class="about-description">
+my matchbook collection started like most great things do—by accident.
+<br> <br>
+i got my first matchbox at torrisi and since then, matchbooks have become my favorite way to hold onto memories. i’ll pick one up after a birthday dinner, a long café afternoon, or even off the ground of a farm in India (for example). over time, they’ve become my personal archive—small, tangible reminders of places and moments i don’t want to forget.
+<br><br>
+but collecting them was surprisingly difficult. i would comb through reddit or save tons of posts on instagram and tiktok, only to never look at them again, with lists of spots scattered across different corners of my notes app. needless to say, it was a mess and the match parlor is a way to clean things up. it’s a collector-driven archive where collectors can share discoveries, track availability, trade with and leave notes for one another, making it easier (and more fun) to keep collecting.
+<br><br>
+at its core, this site is a place for people who appreciate small things with big memories. nothing serious, just a small corner of the internet for a very specific kind of joy :)
+<br><br>
+— diya patel<br><br>
+<a class="social-btn" href="https://beliapp.co/app/diyadpatelx" target="_blank" rel="noopener noreferrer" aria-label="Visit Diya's Beli account" style="display: inline-flex; padding: 4px 8px; font-size: 13px;">
+  <span> p.s. here's my beli if you'd like to see more matchbook and foodie journalism :) </span>
+</a>          </p>
+        </section>
+      </main>
+
+      <footer class="enter-footer" data-name="bottom bar"></footer>
+      <div class="footer-mask" aria-hidden="true"></div>
+      <div class="bottom-line"></div>
+    </div>
+
+    <script>
+      (() => {
+        const nav = document.querySelector(".home-nav");
+        const menuToggle = document.querySelector(".menu-toggle");
+        if (!nav || !menuToggle) return;
+
+        const closeMenu = () => {
+          nav.classList.remove("nav-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        };
+
+        menuToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = nav.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!nav.contains(event.target)) closeMenu();
+        });
+
+        nav.querySelectorAll(".nav-menu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (window.innerWidth <= 1024) closeMenu();
+          });
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 1024) closeMenu();
+        });
+      })();
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>
